@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      aboutUsText: DataTypes.STRING,
+      aboutUsText: DataTypes.TEXT,
     },
     {
       sequelize,
