@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         instagramUrl: DataTypes.STRING,
         linkedinUrl: DataTypes.STRING,
         image: { type: DataTypes.STRING, allowNull: false },
-        description: DataTypes.STRING
+
     }, {
         sequelize,
         modelName: 'Member',
