@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     Role.init({
 
-        id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
+        id_role: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
         name: { type: DataTypes.STRING, allowNull: false },
         description: DataTypes.STRING
     }, {
