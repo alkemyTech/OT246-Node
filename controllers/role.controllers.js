@@ -5,9 +5,13 @@ const RoleController = {
         const { name, description = null } = req.params;
 
         try {
-            const role = await Role.create({ name, description });
+            const role = Role.build({ name, description });
+            await role.save();
 
-            res.json({ role });
+            res.json({
+                msg: 'Role build finished',
+                role
+            });
         } catch (error) {
             console.log(error);
             throw new Error(error);
@@ -15,7 +19,11 @@ const RoleController = {
     },
     getRoles: async(req, res) => {
         try {
-            const roles = await Role.findAll();
+            const roles = await Role.findAll({
+                where: {
+                    deletedAt: null
+                }
+            });
 
             res.json({
                 roles
@@ -28,7 +36,7 @@ const RoleController = {
     getRoleById: async(req, res) => {
         const { id } = req.params;
         try {
-            const role = await Role.findOne({ where: { id_role: id } });
+            const role = await Role.findOne({ where: id });
 
             res.json({ role });
         } catch (error) {
@@ -41,7 +49,7 @@ const RoleController = {
         const { name, description } = req.body;
         try {
 
-            const role = await Role.findOne({ where: { id_role: id } });
+            const role = await Role.findOne({ where: id });
 
             await role.update({
                 name,
@@ -57,7 +65,7 @@ const RoleController = {
     deleteRole: async(req, res) => {
         const { id } = req.params;
         try {
-            const roleDeleted = await Role.destroy({ where: { id_role: id } });
+            const roleDeleted = await Role.destroy({ where: id });
 
             res.json({ roleDeleted });
         } catch (error) {
