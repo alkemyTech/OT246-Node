@@ -7,7 +7,13 @@ module.exports = {
   getById: catchAsync(async (req, res, next) => {
     try {
       const slide = await getById(req.params.id)
-      endpointResponse(res, 200, 'Slide', slide)
+      endpointResponse({
+        res,
+        code: 200,
+        status: true,
+        message: 'Slide',
+        body: slide,
+      })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
