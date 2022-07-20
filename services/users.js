@@ -1,11 +1,6 @@
 const { User } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 
-/**
- * Deletes the user's public information.
- * @returns {Promise<User>} An user instance
- */
-
 exports.deleteUserBy = async (id) => {
   try {
     const deletedUser = await User.findByPk(id)
