@@ -1,13 +1,13 @@
 const { ErrorObject } = require('../helpers/error')
 const { Slide } = require('../database/models')
 
-exports.getById = async (id) => {
+exports.getSlideById = async (id) => {
   try {
-    const getSlide = await Slide.findByPk(id)
-    if (!getSlide) {
+    const slide = await Slide.findByPk(id)
+    if (!slide) {
       throw new ErrorObject(404, 'Slide not found')
     }
-    return getSlide
+    return slide
   } catch (err) {
     throw new ErrorObject(err.message, 404)
   }
