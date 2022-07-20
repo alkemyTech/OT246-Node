@@ -12,9 +12,8 @@ exports.deleteUserById = async (id) => {
     if (!deletedUser) {
       throw new ErrorObject('User not found', 404)
     }
-    const dateDelete = new Date()
     await deletedUser.destroy()
-    return `${deletedUser.firstName} was deleted at ${dateDelete}`
+    return `${deletedUser.firstName} was deleted`
   } catch (err) {
     throw new ErrorObject(err.message, 404)
   }
