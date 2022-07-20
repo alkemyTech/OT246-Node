@@ -2,12 +2,12 @@ const { Organization } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 
 /**
- * Returns all organizations' public information.
- * @returns {Promise<Organization[]>} Array of organizations
+ * Gets the organization's public information.
+ * @returns {Promise<Organization>} An organization instance
  */
 exports.get = async () => {
   try {
-    const result = await Organization.findAll({
+    const result = await Organization.findOne({
       attributes: ['id', 'name', 'image', 'phone', 'address'],
     })
 
