@@ -3,6 +3,6 @@ const { get } = require('../controllers/organizations')
 
 const router = Router()
 
-router.get('/', get)
+router.get('/public', get)
 
 module.exports = router
