@@ -4,7 +4,11 @@ const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
 module.exports = {
+<<<<<<< HEAD
   deleteUser: catchAsync(async (req, res, next) => {
+=======
+  deleteById: catchAsync(async (req, res, next) => {
+>>>>>>> 1af5d6bf14efe199fb4159f8405601e3eb08036f
     const { id } = req.params
     try {
       const resp = await deleteUserBy(id)
