@@ -6,7 +6,7 @@ const { ErrorObject } = require('../helpers/error')
  * @returns {Promise<User>} An user instance
  */
 
-exports.deleteUserById = async (id) => {
+exports.deleteUserBy = async (id) => {
   try {
     const deletedUser = await User.findByPk(id)
     if (!deletedUser) {

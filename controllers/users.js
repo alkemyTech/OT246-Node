@@ -1,18 +1,19 @@
 const createHttpError = require('http-errors')
-const { deleteUserById } = require('../services/users')
+const { deleteUserBy } = require('../services/users')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
 module.exports = {
-  deleteById: catchAsync(async (req, res, next) => {
+  deleteUser: catchAsync(async (req, res, next) => {
     const { id } = req.params
     try {
+      const resp = await deleteUserBy(id)
       return endpointResponse({
         res,
         code: 200,
         status: true,
         message: 'OK',
-        body: await deleteUserById(id),
+        body: resp,
       })
     } catch (err) {
       const httpError = createHttpError(
