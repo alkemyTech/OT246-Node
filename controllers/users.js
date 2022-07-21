@@ -12,7 +12,7 @@ module.exports = {
         res,
         code: 200,
         status: true,
-        message: 'OK',
+        message: 'user successfuly deleted',
         body: resp,
       })
     } catch (err) {

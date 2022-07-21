@@ -8,7 +8,7 @@ exports.deleteUserBy = async (id) => {
       throw new ErrorObject('User not found', 404)
     }
     await deletedUser.destroy()
-    return `${deletedUser.firstName} was deleted`
+    return deletedUser
   } catch (err) {
     throw new ErrorObject(err.message, 404)
   }
