@@ -20,7 +20,8 @@ exports.createUser = async ({
       firstName, lastName, email, password,
     })
 
-    delete newUser.password
+    // removes password from returned user
+    newUser.password = undefined
 
     return newUser
   } catch (error) {
