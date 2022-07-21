@@ -1,7 +1,7 @@
 const { Category } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 
-exports.getList = async () => {
+exports.getCategories = async () => {
   try {
     const result = await Category.findAll({
       attributes: ['name'],
