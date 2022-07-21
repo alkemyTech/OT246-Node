@@ -7,7 +7,7 @@ module.exports = {
   register: catchAsync(async (req, res, next) => {
     const {
       body: {
-        fistName,
+        firstName,
         lastName,
         email,
         password,
@@ -16,7 +16,7 @@ module.exports = {
 
     try {
       const newUser = await createUser({
-        fistName,
+        firstName,
         lastName,
         email,
         password,
