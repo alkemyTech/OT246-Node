@@ -18,7 +18,7 @@ module.exports = {
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving users] - [users - DELETE]: ${err.message}`,
+        `[Error removing user] - [users - DELETE]: ${err.message}`,
       )
       return next(httpError)
     }
