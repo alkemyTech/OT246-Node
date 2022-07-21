@@ -1,4 +1,4 @@
-const { createHttpError } = require('http-errors')
+const createHttpError = require('http-errors')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 const { createUser } = require('../services/users')
