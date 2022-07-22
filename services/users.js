@@ -17,7 +17,11 @@ exports.createUser = async ({
     }
 
     const newUser = await User.create({
-      firstName, lastName, email, password,
+      roleId: 2,
+      firstName,
+      lastName,
+      email,
+      password,
     })
 
     // removes password from returned user
