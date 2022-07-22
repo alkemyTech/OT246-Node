@@ -1,24 +1,24 @@
 const createHttpError = require('http-errors')
-const { getOrganization } = require('../services/organizations')
+const { deleteUserBy } = require('../services/users')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
 module.exports = {
-  get: catchAsync(async (req, res, next) => {
+  destroy: catchAsync(async (req, res, next) => {
+    const { id } = req.params
     try {
-      const responseBody = await getOrganization()
-
+      const resp = await deleteUserBy(id)
       return endpointResponse({
         res,
         code: 200,
         status: true,
-        message: 'OK',
-        body: responseBody,
+        message: 'user successfuly deleted',
+        body: resp,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving organizations] - [organizations - GET]: ${err.message}`,
+        `[Error removing user] - [users - DELETE]: ${err.message}`,
       )
       return next(httpError)
     }
