@@ -1,6 +1,6 @@
 const sgMail = require('@sendgrid/mail')
 
-sgMail.setApiKey(process.env.SECRET_KEY)
+sgMail.setApiKey(process.env.SENDRGRID__KEY)
 
 const { ErrorObject } = require('../helpers/error')
 
