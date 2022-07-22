@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     photo: DataTypes.STRING,
     roleId: DataTypes.INTEGER,
-    deletedAt: DataTypes.STRING
+    deletedAt: DataTypes.DATEONLY,
   }, {
     sequelize,
     timestamps: true,
