@@ -1,9 +1,43 @@
 const createHttpError = require('http-errors')
-const { deleteUserBy } = require('../services/users')
+const { createUser, deleteUserBy } = require('../services/users')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
 module.exports = {
+  register: catchAsync(async (req, res, next) => {
+    const {
+      body: {
+        firstName,
+        lastName,
+        email,
+        password,
+      },
+    } = req
+
+    try {
+      const newUser = await createUser({
+        firstName,
+        lastName,
+        email,
+        password,
+      })
+
+      endpointResponse({
+        res,
+        code: 201,
+        message: 'Account registered successfully',
+        body: newUser,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error registering account] - [auth/register - POST]: ${error.message}`,
+      )
+
+      next(httpError)
+    }
+  }),
+
   destroy: catchAsync(async (req, res, next) => {
     const { id } = req.params
     try {

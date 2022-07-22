@@ -2,6 +2,10 @@
 const {
   Model
 } = require('sequelize');
+const { hash } = require('bcrypt');
+
+const SALT_ROUNDS = 10;
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -28,5 +32,14 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true,
     modelName: 'User',
   });
+
+  User.beforeSave(async (user) => {
+    if (user.changed('password')) {
+      const hashedPassword = await hash(user.password, SALT_ROUNDS);
+
+      user.password = hashedPassword;
+    }
+  })
+
   return User;
 };
