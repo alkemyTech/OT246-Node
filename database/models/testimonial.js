@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.STRING
   }, {
     timestamps:true,
+    paranoid: true,
     sequelize,
     modelName: 'Testimonial',
   });
