@@ -1,23 +1,24 @@
 const createHttpError = require('http-errors')
-const { getCategories } = require('../services/categories')
+const { getOrganization } = require('../services/organizations')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
 module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
-      const response = await getCategories()
+      const responseBody = await getOrganization()
+
       return endpointResponse({
         res,
         code: 200,
         status: true,
         message: 'OK',
-        body: response,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving categories] - [categories - GET]: ${err.message}`,
+        `[Error retrieving organizations] - [organizations - GET]: ${err.message}`,
       )
       return next(httpError)
     }
