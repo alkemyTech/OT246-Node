@@ -45,3 +45,48 @@ exports.deleteUserBy = async (id) => {
     throw new ErrorObject(err.message, 404)
   }
 }
+
+exports.updateUser = async (id, data) => {
+  try {
+    let {
+      firstName,
+      lastName,
+      email,
+      password,
+      photo,
+    } = data
+    const user = await User.findByPk(id)
+    if (!user) {
+      throw new ErrorObject('User not found', 404)
+    }
+    if (!firstName && !lastName && !email && !password && !photo) {
+      throw new ErrorObject('No data provided', 400)
+    }
+    if (!firstName) {
+      firstName = user.firstName
+    }
+    if (!lastName) {
+      lastName = user.lastName
+    }
+    if (!email) {
+      email = user.email
+    }
+    if (!password) {
+      password = user.password
+    }
+    if (!photo) {
+      photo = user.photo
+    }
+    await user.update({
+      firstName,
+      lastName,
+      email,
+      password,
+      photo,
+    })
+    delete user.dataValues.password
+    return user
+  } catch (err) {
+    throw new ErrorObject(err.message, 404)
+  }
+}
