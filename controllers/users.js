@@ -58,7 +58,7 @@ module.exports = {
     }
   }),
 
-  edit: catchAsync(async (req, res, next) => {
+  update: catchAsync(async (req, res, next) => {
     const { id } = req.params
     const {
       body: {
