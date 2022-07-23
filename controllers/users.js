@@ -60,32 +60,15 @@ module.exports = {
 
   update: catchAsync(async (req, res, next) => {
     const { id } = req.params
-    const {
-      body: {
-        firstName,
-        lastName,
-        email,
-        password,
-        photo,
-      },
-    } = req
+    const data = req.body
     try {
-      const user = await updateUser(
-        id,
-        {
-          firstName,
-          lastName,
-          email,
-          password,
-          photo,
-        },
-      )
+      const toUpdate = await updateUser(id, data)
       return endpointResponse({
         res,
         code: 200,
         status: true,
         message: 'data successfully updated',
-        body: user,
+        body: toUpdate,
       })
     } catch (err) {
       const httpError = createHttpError(
