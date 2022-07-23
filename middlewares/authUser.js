@@ -20,7 +20,7 @@ module.exports = {
       }
     } catch (err) {
       const httpError = createHttpError(
-        err.statusCode,
+        401,
         `[Error authenticating user] - [authUser - middleware] - ${err.message}`,
       )
       next(httpError)
