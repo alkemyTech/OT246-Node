@@ -29,7 +29,7 @@ module.exports = {
       const dynamicTemplateData = {
         name: newUser.firstName,
       }
-      await sendMail(newUser.email, 'ok', idTemplate, dynamicTemplateData)
+      await sendMail(newUser.email, 'successful user registration', idTemplate, dynamicTemplateData)
 
       endpointResponse({
         res,
