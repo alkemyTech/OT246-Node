@@ -1,7 +1,11 @@
 const createHttpError = require('http-errors')
+
 const { createUser, deleteUserBy } = require('../services/users')
+const { sendMail } = require('../services/sendMail')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
+
+const idTemplate = process.env.SENDGRID_ID_DYNAMIC_TEMPLATE
 
 module.exports = {
   register: catchAsync(async (req, res, next) => {
@@ -21,6 +25,11 @@ module.exports = {
         email,
         password,
       })
+      // Read Template and send Mail
+      const dynamicTemplateData = {
+        name: newUser.firstName,
+      }
+      await sendMail(newUser.email, 'ok', idTemplate, dynamicTemplateData)
 
       endpointResponse({
         res,
