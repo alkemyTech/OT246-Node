@@ -87,6 +87,6 @@ exports.updateUser = async (id, data) => {
     delete user.dataValues.password
     return user
   } catch (err) {
-    throw new ErrorObject(err.message, 404)
+    throw new ErrorObject(err.message, err.statusCode)
   }
 }
