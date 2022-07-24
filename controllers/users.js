@@ -99,7 +99,7 @@ module.exports = {
       req.headers.authorization = `Bearer ${token}`
       endpointResponse({
         res,
-        code: 201,
+        code: 200,
         message: 'Account login successfully',
         body: token,
       })

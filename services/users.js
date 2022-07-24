@@ -99,7 +99,7 @@ exports.loginUser = async ({
   try {
     const user = await User.findOne({ where: { email } })
     if (!user || !bcrypt.compareSync(password, user.password)) {
-      throw new ErrorObject('Credentials not validat', 404)
+      throw new ErrorObject('Invalid Credentials ', 401)
     }
     const token = generateToken({ email: user.dataValues.email })
     return token

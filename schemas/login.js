@@ -8,7 +8,6 @@ const loginBody = {
   password: {
     in: 'body',
     isString: { errorMessage: 'Must be a string' },
-    isStrongPassword: { errorMessage: 'Must be a strong password' },
   },
 }
 module.exports = { loginBody }
