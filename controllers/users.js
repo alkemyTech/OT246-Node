@@ -5,8 +5,6 @@ const { sendMail } = require('../services/sendMail')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
-const idTemplate = process.env.SENDGRID_ID_DYNAMIC_TEMPLATE
-
 module.exports = {
   register: catchAsync(async (req, res, next) => {
     const {
@@ -29,7 +27,7 @@ module.exports = {
       const dynamicTemplateData = {
         name: newUser.firstName,
       }
-      await sendMail(newUser.email, idTemplate, dynamicTemplateData)
+      await sendMail(newUser.email, dynamicTemplateData)
 
       endpointResponse({
         res,
