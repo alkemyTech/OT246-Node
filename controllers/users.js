@@ -58,7 +58,7 @@ module.exports = {
     }
   }),
 
-  update: catchAsync(async (req, res, next) => {
+  put: catchAsync(async (req, res, next) => {
     const { id } = req.params
     const data = req.body
     try {
