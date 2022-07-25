@@ -23,11 +23,8 @@ module.exports = {
         email,
         password,
       })
-      // Read Template and send Mail
-      const dynamicTemplateData = {
-        name: newUser.firstName,
-      }
-      await sendMail(newUser.email, dynamicTemplateData)
+
+      await sendMail(newUser.email, { name: newUser.firstName })
 
       endpointResponse({
         res,

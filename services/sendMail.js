@@ -8,6 +8,7 @@ const { ErrorObject } = require('../helpers/error')
 
 exports.sendMail = async (mail, dynamicTemplateData) => {
   const sandboxMode = false
+
   const settings = {
     from: process.env.SENDGRID_FROM,
     to: mail,
