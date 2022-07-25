@@ -96,7 +96,6 @@ module.exports = {
         email,
         password,
       })
-      req.headers.authorization = `Bearer ${token}`
       endpointResponse({
         res,
         code: 200,
