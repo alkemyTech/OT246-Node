@@ -1,5 +1,7 @@
+const bcrypt = require('bcrypt')
 const { User } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
+const { generateToken } = require('../middlewares/jwt')
 
 exports.findOneByEmail = (email) => User.findOne({
   where: { email },
@@ -88,5 +90,20 @@ exports.updateUser = async (id, data) => {
     return user
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode)
+  }
+}
+
+exports.loginUser = async ({
+  email, password,
+}) => {
+  try {
+    const user = await User.findOne({ where: { email } })
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      throw new ErrorObject('Invalid Credentials ', 401)
+    }
+    const token = generateToken({ email: user.dataValues.email })
+    return token
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }

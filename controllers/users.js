@@ -1,7 +1,14 @@
 const createHttpError = require('http-errors')
 
-const { createUser, deleteUserBy, updateUser } = require('../services/users')
+const {
+  createUser,
+  deleteUserBy,
+  updateUser,
+  loginUser,
+} = require('../services/users')
+
 const { sendMailRegistration } = require('../services/sendMail')
+
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
@@ -81,6 +88,34 @@ module.exports = {
         `[Error updating user] - [users - PATCH]: ${err.message}`,
       )
       return next(httpError)
+    }
+  }),
+  login: catchAsync(async (req, res, next) => {
+    const {
+      body: {
+        email,
+        password,
+      },
+    } = req
+
+    try {
+      const token = await loginUser({
+        email,
+        password,
+      })
+      endpointResponse({
+        res,
+        code: 200,
+        message: 'Account login successfully',
+        body: token,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error login account] - [auth/login- POST]: ${error.message}`,
+      )
+
+      next(httpError)
     }
   }),
 }
