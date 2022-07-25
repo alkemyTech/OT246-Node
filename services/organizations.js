@@ -28,6 +28,6 @@ exports.updateOrganization = async (data) => {
     const organizationUpdated = await Organization.findOne({ where: { id: 1 }, attributes: ['name', 'image', 'phone', 'address'] })
     return organizationUpdated
   } catch (err) {
-    throw new ErrorObject(err.message, 500)
+    throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
