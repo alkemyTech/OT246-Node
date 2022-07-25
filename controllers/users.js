@@ -17,12 +17,12 @@ module.exports = {
     } = req
 
     try {
-      const newUser = {
+      const newUser = await createUser({
         firstName,
         lastName,
         email,
         password,
-      }
+      })
 
       // { 0: registerTemplate }
       await sendMailRegistration(newUser.email, { name: newUser.firstName })
