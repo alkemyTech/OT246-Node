@@ -1,18 +1,19 @@
 const sgMail = require('@sendgrid/mail')
+const { ErrorObject } = require('../helpers/error')
 
-const templateId = process.env.SENDGRID_ID_DYNAMIC_TEMPLATE
+const tempRegistration = process.env.SENDGRID_ID_DYNAMIC_TEMPLATE
+
+const templates = { 0: tempRegistration }
 
 sgMail.setApiKey(process.env.SENDGRID_KEY)
 
-const { ErrorObject } = require('../helpers/error')
-
-exports.sendMail = async (mail, dynamicTemplateData) => {
+exports.sendMail = async (mail, opCode, dynamicTemplateData) => {
   const sandboxMode = false
 
   const settings = {
     from: process.env.SENDGRID_FROM,
     to: mail,
-    templateId,
+    templateId: templates[opCode],
     dynamic_template_data: dynamicTemplateData,
     mail_settings: {
       sandbox_mode: {
