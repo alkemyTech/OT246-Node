@@ -1,5 +1,7 @@
 const createHttpError = require('http-errors')
+
 const { createUser, deleteUserBy, updateUser } = require('../services/users')
+const { sendMailRegistration } = require('../services/sendMail')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
@@ -21,6 +23,9 @@ module.exports = {
         email,
         password,
       })
+
+      // { 0: registerTemplate }
+      await sendMailRegistration(newUser.email, { name: newUser.firstName })
 
       endpointResponse({
         res,
