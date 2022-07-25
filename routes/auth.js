@@ -1,6 +1,5 @@
 const { Router } = require('express')
-const { register } = require('../controllers/users')
-const { login } = require('../controllers/users')
+const { register, login } = require('../controllers/users')
 const { validateSchema } = require('../middlewares/validations')
 const { registerBody } = require('../schemas/register')
 const { loginBody } = require('../schemas/login')
