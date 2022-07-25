@@ -7,14 +7,14 @@ const templates = { 0: tempRegistration }
 
 sgMail.setApiKey(process.env.SENDGRID_KEY)
 
-exports.sendMail = async (mail, opCode, dynamicTemplateData) => {
+exports.sendMail = async (mail, opCode, data) => {
   const sandboxMode = false
 
   const settings = {
     from: process.env.SENDGRID_FROM,
     to: mail,
     templateId: templates[opCode],
-    dynamic_template_data: dynamicTemplateData,
+    dynamic_template_data: data,
     mail_settings: {
       sandbox_mode: {
         enable: sandboxMode,
