@@ -21,7 +21,12 @@ exports.getOrganization = async () => {
 exports.updateOrganization = async (data) => {
   try {
     const organization = await Organization.update(data, { where: { id: 1 } })
-    return organization
+    const [updated] = organization
+    if (updated === 0) {
+      throw new ErrorObject('Organization not found', 404)
+    }
+    const organizationUpdated = await Organization.findOne({ where: { id: 1 }, attributes: ['name', 'image', 'phone', 'address'] })
+    return organizationUpdated
   } catch (err) {
     throw new ErrorObject(err.message, 500)
   }

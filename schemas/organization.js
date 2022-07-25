@@ -3,7 +3,7 @@ const organizationBody = {
     in: 'body',
     trim: true,
     notEmpty: { errorMessage: 'Must not be empty' },
-    isAlpha: { errorMessage: 'Must contain alphabetic characters only' },
+    isAlphaWithSpace: { errorMessage: 'Must contain alphabetic characters only' },
   },
   image: {
     in: 'body',
@@ -15,7 +15,7 @@ const organizationBody = {
     in: 'body',
     trim: true,
     notEmpty: { errorMessage: 'Must not be empty' },
-    isAlphanumeric: { errorMessage: 'Must contain alphabetic characters only' },
+    isAlphanumericWithSpace: { errorMessage: 'Must contain alphabetic characters only' },
   },
   phone: {
     in: 'body',

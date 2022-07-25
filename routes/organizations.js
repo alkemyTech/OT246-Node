@@ -7,6 +7,6 @@ const { authUser } = require('../middlewares/authUser')
 const router = Router()
 
 router.get('/public', get)
-router.post('/public', authUser(), validateSchema(organizationBody), update)
+router.post('/public', authUser, validateSchema(organizationBody), update)
 
 module.exports = router
