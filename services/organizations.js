@@ -17,3 +17,12 @@ exports.getOrganization = async () => {
     throw new ErrorObject(err.message, 500)
   }
 }
+
+exports.updateOrganization = async (data) => {
+  try {
+    const organization = await Organization.update(data, { where: { id: 1 } })
+    return organization
+  } catch (err) {
+    throw new ErrorObject(err.message, 500)
+  }
+}
