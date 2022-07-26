@@ -12,7 +12,6 @@ const { sendMailRegistration } = require('../services/sendMail')
 
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
-const { verifyToken } = require('../middlewares/jwt')
 
 module.exports = {
   register: catchAsync(async (req, res, next) => {
@@ -123,11 +122,8 @@ module.exports = {
   }),
 
   getData: catchAsync(async (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1]
-    const payload = verifyToken(token)
-    const { email } = payload
     try {
-      const myData = await findDataByAutentication(email)
+      const myData = await findDataByAutentication(req.headers.authorization)
       myData.password = 'password'
       return endpointResponse({
         res,
