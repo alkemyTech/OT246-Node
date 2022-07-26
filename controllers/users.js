@@ -1,5 +1,15 @@
 const createHttpError = require('http-errors')
-const { createUser, deleteUserBy, findUserByAutentication } = require('../services/users')
+
+const {
+  createUser,
+  deleteUserBy,
+  updateUser,
+  loginUser,
+  findUserByAutentication,
+} = require('../services/users')
+
+const { sendMailRegistration } = require('../services/sendMail')
+
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 const { verifyToken } = require('../middlewares/jwt')
@@ -22,6 +32,9 @@ module.exports = {
         email,
         password,
       })
+
+      // { 0: registerTemplate }
+      await sendMailRegistration(newUser.email, { name: newUser.firstName })
 
       endpointResponse({
         res,
@@ -47,7 +60,7 @@ module.exports = {
         res,
         code: 200,
         status: true,
-        message: 'user successfuly deleted',
+        message: 'user successfully deleted',
         body: resp,
       })
     } catch (err) {
@@ -56,6 +69,56 @@ module.exports = {
         `[Error removing user] - [users - DELETE]: ${err.message}`,
       )
       return next(httpError)
+    }
+  }),
+
+  put: catchAsync(async (req, res, next) => {
+    const { id } = req.params
+    const data = req.body
+    try {
+      const toUpdate = await updateUser(id, data)
+      return endpointResponse({
+        res,
+        code: 200,
+        status: true,
+        message: 'data successfully updated',
+        body: toUpdate,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error updating user] - [users - PATCH]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+
+  login: catchAsync(async (req, res, next) => {
+    const {
+      body: {
+        email,
+        password,
+      },
+    } = req
+
+    try {
+      const token = await loginUser({
+        email,
+        password,
+      })
+      endpointResponse({
+        res,
+        code: 200,
+        message: 'Account login successfully',
+        body: token,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error login account] - [auth/login- POST]: ${error.message}`,
+      )
+
+      next(httpError)
     }
   }),
 
