@@ -4,7 +4,7 @@ exports.isUserAdmin = async (req, res, next) => {
   try {
     const { id } = req.params
 
-    if (id == 1) {
+    if (id === '1') {
       next()
     } else {
       throw new ErrorObject('Unauthorized', 403)
