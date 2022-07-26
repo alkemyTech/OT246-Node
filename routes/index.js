@@ -3,7 +3,7 @@ const { get } = require('../controllers/index')
 const authRouter = require('./auth')
 const userRouter = require('./users')
 const categoriesRouter = require('./categories')
-
+const newsRouter = require('./news')
 const organizationsRouter = require('./organizations')
 const slidesRouter = require('./slides')
 
@@ -14,7 +14,7 @@ router.get('/', get)
 router.use('/auth', authRouter)
 router.use('/users', userRouter)
 router.use('/categories', categoriesRouter)
-
+router.use('/news', newsRouter)
 router.use('/organization', organizationsRouter)
 router.use('/slide', slidesRouter)
 
