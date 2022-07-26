@@ -4,7 +4,7 @@ const { ErrorObject } = require('../helpers/error')
 exports.getNewsById = async (id) => {
   try {
     const newsById = await New.findByPk(id, {
-      attributes: ['id', 'name', 'content', 'image'],
+      attributes: ['id', 'name', 'content', 'image', 'categoryId'],
     })
     if (!newsById) {
       throw new ErrorObject(404, 'Not found')
