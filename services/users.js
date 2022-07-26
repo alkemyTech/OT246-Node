@@ -45,3 +45,15 @@ exports.deleteUserBy = async (id) => {
     throw new ErrorObject(err.message, 404)
   }
 }
+
+exports.findDataByAutentication = async (email) => {
+  try {
+    const userData = await User.findOne({ where: { email } })
+    if (!userData) {
+      throw new ErrorObject('User not found', 404)
+    }
+    return userData
+  } catch (err) {
+    throw new ErrorObject(err.message, 404)
+  }
+}

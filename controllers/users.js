@@ -1,7 +1,8 @@
 const createHttpError = require('http-errors')
-const { createUser, deleteUserBy } = require('../services/users')
+const { createUser, deleteUserBy, findUserByAutentication } = require('../services/users')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
+const { verifyToken } = require('../middlewares/jwt')
 
 module.exports = {
   register: catchAsync(async (req, res, next) => {
@@ -57,4 +58,26 @@ module.exports = {
       return next(httpError)
     }
   }),
+
+  getData: catchAsync(async (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1]
+    const email = verifyToken(token)
+    try {
+      const myData = await findUserByAutentication(email)
+      return endpointResponse({
+        res,
+        code: 200,
+        status: true,
+        message: 'data get',
+        body: myData,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error getting user data] - [users - GET DATA]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+
 }
