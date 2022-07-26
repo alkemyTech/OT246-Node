@@ -5,7 +5,7 @@ const {
   deleteUserBy,
   updateUser,
   loginUser,
-  findUserByAutentication,
+  findDataByAutentication,
 } = require('../services/users')
 
 const { sendMailRegistration } = require('../services/sendMail')
@@ -124,9 +124,11 @@ module.exports = {
 
   getData: catchAsync(async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1]
-    const email = verifyToken(token)
+    const payload = verifyToken(token)
+    const { email } = payload
     try {
-      const myData = await findUserByAutentication(email)
+      const myData = await findDataByAutentication(email)
+      myData.password = 'password'
       return endpointResponse({
         res,
         code: 200,
