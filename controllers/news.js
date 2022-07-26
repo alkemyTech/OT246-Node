@@ -17,7 +17,7 @@ module.exports = {
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving news] - [news - GET]: ${err.message}`,
+        `[Error retrieving news] - [news - GET /news/${req.params.id}]: ${err.message}`,
       )
       return next(httpError)
     }

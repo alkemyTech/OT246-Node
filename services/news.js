@@ -7,10 +7,10 @@ exports.getNewsById = async (id) => {
       attributes: ['id', 'name', 'content', 'image', 'categoryId'],
     })
     if (!newsById) {
-      throw new ErrorObject(404, 'Not found')
+      throw new ErrorObject('Not found', 404)
     }
     return newsById
   } catch (err) {
-    throw new ErrorObject(err.message, err.statusCode || 500)
+    throw new ErrorObject(err.message, err.statusCode)
   }
 }
