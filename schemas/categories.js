@@ -20,7 +20,7 @@ const categoryBodyPut = {
   image: {
     in: 'body',
     trim: 'true',
-    isUrl: { errorMessage: 'Must be an URL' },
+    isURL: { errorMessage: 'Must be an URL' },
     optional: true,
   },
 }
