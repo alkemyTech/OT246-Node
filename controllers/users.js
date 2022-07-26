@@ -5,6 +5,7 @@ const {
   deleteUserBy,
   updateUser,
   loginUser,
+  findDataByAutentication,
 } = require('../services/users')
 
 const { sendMailRegistration } = require('../services/sendMail')
@@ -90,6 +91,7 @@ module.exports = {
       return next(httpError)
     }
   }),
+
   login: catchAsync(async (req, res, next) => {
     const {
       body: {
@@ -118,4 +120,25 @@ module.exports = {
       next(httpError)
     }
   }),
+
+  getData: catchAsync(async (req, res, next) => {
+    try {
+      const myData = await findDataByAutentication(req.headers.authorization)
+      myData.password = 'password'
+      return endpointResponse({
+        res,
+        code: 200,
+        status: true,
+        message: 'data get',
+        body: myData,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error getting user data] - [users - GET DATA]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+
 }
