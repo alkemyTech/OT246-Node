@@ -7,7 +7,7 @@ const s3 = new aws.S3({
   secretAccessKey: process.env.AWS_SECRET_KEY,
 })
 
-export function uploadFileContents(fileName, fileContents) {
+exports.uploadFileContents = (fileName, fileContents) => {
   const params = {
     Bucket: process.env.AWS_BUCKET_NAME,
     Key: fileName,
@@ -22,13 +22,13 @@ export function uploadFileContents(fileName, fileContents) {
   })
 }
 
-export function uploadFilePath(filePath) {
+exports.uploadFilePath = (filePath) => {
   const fileContent = fs.readFileSync(filePath)
   const fileName = path.parse(filePath).base
-  return uploadFileContents(fileName, fileContent)
+  return exports.uploadFileContents(fileName, fileContent)
 }
 
-export function deleteFile(key) {
+exports.deleteFile = (key) => {
   const params = {
     Bucket: process.env.AWS_BUCKET_NAME,
     Key: key,
