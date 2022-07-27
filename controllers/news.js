@@ -25,7 +25,7 @@ module.exports = {
 
   put: catchAsync(async (req, res, next) => {
     try {
-      const responseBody = await updateNew(req.params.id)
+      const responseBody = await updateNew(req.params.id, req.body)
       return endpointResponse({
         res,
         code: 200,
