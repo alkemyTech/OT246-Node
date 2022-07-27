@@ -7,6 +7,12 @@ const newBody = {
   content: {
     in: 'body',
     trim: true,
+    matches: {
+      options: [
+        /^[a-zA-Z0-9 ]*$/,
+      ],
+      errorMessage: 'Content must be alphanumeric',
+    },
     notEmpty: { errorMessage: 'Must not be empty' },
   },
   image: {
