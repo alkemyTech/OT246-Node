@@ -35,7 +35,7 @@ module.exports = {
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving slide] - [slides - GET /slides ]: ${err.message}`,
+        `[Error retrieving slide] - [slides - GET]: ${err.message}`,
       )
 
       next(httpError)
