@@ -1,5 +1,5 @@
 const createHttpError = require('http-errors')
-const { getNewsById } = require('../services/news')
+const { getNewsById, deleteNewsById } = require('../services/news')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
@@ -18,6 +18,23 @@ module.exports = {
       const httpError = createHttpError(
         err.statusCode,
         `[Error retrieving news] - [news - GET /news/${req.params.id}]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+  destroy: catchAsync(async (req, res, next) => {
+    try {
+      await deleteNewsById(req.params.id)
+      return endpointResponse({
+        res,
+        code: 200,
+        status: true,
+        message: `The news with ${req.params.id} has been deleted`,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error deleting news] - [news - DELETE /news/${req.params.id}]: ${err.message}`,
       )
       return next(httpError)
     }
