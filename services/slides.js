@@ -18,10 +18,7 @@ exports.getSlideAll = async () => {
     const slide = await Slide.findAll({
       attributes: { exclude: ['text', 'organizationId', 'id'] },
     })
-    if (!slide) {
-      throw new ErrorObject(404, 'Slide not found')
-    }
-    return slide
+  return slide
   } catch (err) {
     throw new ErrorObject(err.message, 404)
   }

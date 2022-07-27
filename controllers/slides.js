@@ -24,18 +24,18 @@ module.exports = {
   }),
   getAll: catchAsync(async (req, res, next) => {
     try {
-      const slide = await getSlideAll(req.params.imageUrl)
+      const slide = await getSlideAll()
       endpointResponse({
         res,
         code: 200,
         status: true,
-        message: 'Slide All',
+        message: 'Slides retrieved successfully',
         body: slide,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving slide] - [slides - GET /slides/${req.params.imageUrl}] - ${err.message}`,
+        `[Error retrieving slide] - [slides - GET /slides ]: ${err.message}`,
       )
 
       next(httpError)
