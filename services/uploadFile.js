@@ -1,4 +1,4 @@
-const { s3, createCommand} = require('./amazonS3')
+const { s3, createCommand } = require('./amazonS3')
 const { ErrorObject } = require('../helpers/error')
 
 const config = {
