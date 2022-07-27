@@ -1,12 +1,11 @@
-const { Router } = require('express')
+const router = require('express').Router()
+const { getById } = require('../controllers/news')
 const { post } = require('../controllers/news')
+const { authUser } = require('../middlewares/authUser')
 const { validateSchema } = require('../middlewares/validations')
 const { newBody } = require('../schemas/news')
-const { authUser } = require('../middlewares/authUser')
 
-const router = Router()
-
-router.post('/', authUser, validateSchema(newBody), post)
-// cambiar authUser por middleware correspondiente (cuando esté)
+router.get('/:id', authUser, getById)
+router.post('/', validateSchema(newBody), post)
 
 module.exports = router
