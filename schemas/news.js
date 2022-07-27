@@ -21,5 +21,11 @@ const newBody = {
     notEmpty: { errorMessage: 'Must not be empty' },
     isURL: { errorMessage: 'Must be a valid URL' },
   },
+  categoryId: {
+    in: 'body',
+    trim: true,
+    isInt: true,
+    notEmpty: { errorMessage: 'Must not be empty' },
+  },
 }
 module.exports = { newBody }

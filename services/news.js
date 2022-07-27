@@ -1,4 +1,4 @@
-const { New } = require('../database/models')
+const { New, Category } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 
 exports.getNewsById = async (id) => {
@@ -23,6 +23,10 @@ exports.createNew = async (data) => {
     categoryId,
   } = data
   try {
+    const category = await Category.findByPk(categoryId)
+    if (!category) {
+      throw new ErrorObject('Category not found', 404)
+    }
     const result = await New.create({
       name,
       content,
