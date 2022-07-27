@@ -59,7 +59,7 @@ exports.updateNew = async (id, {
     return news
   } catch (err) {
     if (err instanceof ForeignKeyConstraintError) {
-      throw new ErrorObject(`Category with id ${categoryId} does not exist`, 400)
+      throw new ErrorObject('Category not found', 404)
     }
 
     throw new ErrorObject(err.message, err.statusCode || 500)
