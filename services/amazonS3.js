@@ -1,4 +1,4 @@
-const { S3Client, AbortMultipartUploadCommand } = require('@aws-sdk/client-s3')
+const { S3Client, PutObject } = require('@aws-sdk/client-s3')
 
 exports.s3 = new S3Client({
   credentials: {
