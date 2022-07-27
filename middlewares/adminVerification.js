@@ -2,9 +2,9 @@ const { ErrorObject } = require('../helpers/error')
 
 exports.isUserAdmin = async (req, res, next) => {
   try {
-    const { id } = req.params
+    const { roleId } = req.body
 
-    if (id === '1') {
+    if (roleId === '1') {
       next()
     } else {
       throw new ErrorObject('This endpoint is for admins only', 403)
