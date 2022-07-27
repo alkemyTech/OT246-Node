@@ -1,5 +1,4 @@
-const fs = require('fs')
-const { s3, createCommand } = require('./amazonS3')
+const { s3, createCommand} = require('./amazonS3')
 const { ErrorObject } = require('../helpers/error')
 
 const config = {
@@ -7,19 +6,19 @@ const config = {
   region: process.env.AWS_REGION,
 }
 
-exports.uploadFile = async (tempFilePath) => {
-  const content = fs.readFileSync(tempFilePath)
-  const command = createCommand({
+exports.uploadFile = async (tempFile) => {
+  const input = {
     Bucket: config.bucketName,
-    Key: tempFilePath,
-    Body: content,
-  })
+    Key: tempFile.name,
+    Body: tempFile.data,
+  }
   try {
+    const command = createCommand(input)
     const { ETag } = await s3.send(command)
     if (!ETag) {
       throw new ErrorObject('No file upload', 502)
     }
-    return `https://${config.bucketName}.s3.${config.region}.amazonaws.com/${tempFilePath}`
+    return `https://${config.bucketName}.s3.${config.region}.amazonaws.com/${tempFile.name}`
   } catch (err) {
     throw new ErrorObject(err.message, 502)
   }
