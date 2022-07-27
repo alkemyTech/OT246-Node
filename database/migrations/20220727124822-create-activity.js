@@ -12,16 +12,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      content: {
-        allowNull: false,
-        type: Sequelize.TEXT
-      },
       image: {
-        allowNull: false,
         type: Sequelize.STRING
       },
-      deletedAt: {
-        type: Sequelize.DATE
+      content: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -29,6 +24,9 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE
+      },
+      deletedAt: {
         type: Sequelize.DATE
       }
     });

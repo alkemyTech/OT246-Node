@@ -1,5 +1,5 @@
 const { ForeignKeyConstraintError } = require('sequelize')
-const { New } = require('../database/models')
+const { New, Category } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 
 exports.getNewsById = async (id) => {
@@ -13,6 +13,31 @@ exports.getNewsById = async (id) => {
     return newsById
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode)
+  }
+}
+
+exports.createNew = async (data) => {
+  const {
+    name,
+    content,
+    image,
+    categoryId,
+  } = data
+  try {
+    const category = await Category.findByPk(categoryId)
+    if (!category) {
+      throw new ErrorObject('Category not found', 404)
+    }
+    const result = await New.create({
+      name,
+      content,
+      image,
+      categoryId,
+      type: 'news',
+    })
+    return result
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
 

@@ -4,6 +4,7 @@ const {
   getCategoryById,
   createCategory,
   updateCategory,
+  deleteCategory,
 } = require('../services/categories')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
@@ -82,6 +83,25 @@ module.exports = {
       const httpError = createHttpError(
         err.statusCode,
         `[Error updating category] - [categories/${id} - PUT]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+  destroy: catchAsync(async (req, res, next) => {
+    const { id } = req.params
+    try {
+      const resp = await deleteCategory(id)
+      return endpointResponse({
+        res,
+        code: 200,
+        status: true,
+        message: 'category successfully deleted',
+        body: resp,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error removing category] - [categories - DELETE]: ${err.message}`,
       )
       return next(httpError)
     }
