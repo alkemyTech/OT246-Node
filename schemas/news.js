@@ -16,7 +16,7 @@ const newBody = {
     trim: true,
     notEmpty: { errorMessage: 'Must not be empty' },
     isURL: { errorMessage: 'Must be a valid URL' },
-    isOptional: true,
+    optional: true,
   },
 }
 module.exports = { newBody }
