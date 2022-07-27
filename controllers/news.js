@@ -47,7 +47,7 @@ module.exports = {
         res,
         code: 200,
         status: true,
-        message: `The news with ID ${req.params.id} has been deleted`,
+        message: `The news with ${req.params.id} has been deleted`,
       })
     } catch (err) {
       const httpError = createHttpError(
