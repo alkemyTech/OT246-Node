@@ -19,8 +19,8 @@ exports.getSlideAll = async () => {
       attributes: { exclude: ['text', 'organizationId', 'id'] },
     })
 
-  return slide
+    return slide
   } catch (err) {
-    throw new ErrorObject(err.message, err.statusCode )
+    throw new ErrorObject(err.message, err.statusCode)
   }
 }
