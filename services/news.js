@@ -16,7 +16,12 @@ exports.getNewsById = async (id) => {
 }
 
 exports.createNew = async (data) => {
-  const { name, content, image, categoryId } = data
+  const {
+    name,
+    content,
+    image,
+    categoryId,
+  } = data
   try {
     const result = await New.create({
       name,
