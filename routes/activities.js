@@ -8,6 +8,6 @@ const { authUser } = require('../middlewares/authUser')
 
 const router = Router()
 
-router.post('/', /*authUser*/validateSchema(activityBodyPost), post)
+router.post('/', authUser, validateSchema(activityBodyPost), post)
 
 module.exports = router
