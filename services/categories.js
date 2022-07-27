@@ -37,3 +37,17 @@ exports.createCategory = async (name) => {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
+
+exports.updateCategory = async (id, { name, description, image }) => {
+  try {
+    const category = await this.getCategoryById(id)
+
+    category.setAttributes({ name, description, image })
+
+    await category.save()
+
+    return category
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
