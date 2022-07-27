@@ -6,6 +6,6 @@ const { validateSchema } = require('../middlewares/validations')
 const { newBody } = require('../schemas/news')
 
 router.get('/:id', authUser, getById)
-router.post('/', validateSchema(newBody), post)
+router.post('/', authUser, validateSchema(newBody), post)
 
 module.exports = router
