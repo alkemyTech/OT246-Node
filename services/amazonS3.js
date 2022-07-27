@@ -9,4 +9,4 @@ exports.s3 = new S3Client({
   signatureVersion: 'v4',
 })
 
-exports.createCommand = (params) => new AbortMultipartUploadCommand(params)
+exports.createCommand = (params) => new PutObject(params)
