@@ -8,7 +8,9 @@ const newBody = {
     in: 'body',
     trim: true,
     matches: {
-      options: [/^[-_ a-zA-Z0-9]+$/],
+      options: [
+        /^[-_ a-zA-Z0-9]+$/,
+      ],
       errorMessage: 'Content must be alphanumeric',
     },
     notEmpty: { errorMessage: 'Must not be empty' },
