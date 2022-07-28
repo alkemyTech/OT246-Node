@@ -65,3 +65,15 @@ exports.updateNew = async (id, {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
+
+exports.deleteNewsById = async (id) => {
+  try {
+    const newsById = await New.findByPk(id)
+    if (!newsById) {
+      throw new ErrorObject('Not found', 404)
+    }
+    await newsById.destroy()
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
