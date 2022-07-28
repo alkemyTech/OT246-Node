@@ -10,10 +10,10 @@ exports.createActivity = async (name, content, image) => {
   }
 }
 
-exports.updateActivity = async (id, name, content, image) => {
+exports.updateActivity = async (id, data) => {
   try {
     const activity = await Activity.update(
-      { name, content, image },
+      data,
       {
         where: {
           id,

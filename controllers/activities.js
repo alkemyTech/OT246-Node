@@ -25,12 +25,12 @@ module.exports = {
 
   put: catchAsync(async (req, res, next) => {
     const { id } = req.params
-    const { name, content, image } = req.body
+    const data = req.body
     try {
-      const response = await updateActivity(id, name, content, image)
+      const response = await updateActivity(id, data)
       return endpointResponse({
         res,
-        code: 201,
+        code: 200,
         message: 'Activity was updated successfully',
         body: response,
       })
