@@ -1,5 +1,5 @@
 const createHttpError = require('http-errors')
-const { createActivity } = require('../services/activities')
+const { createActivity, updateActivity } = require('../services/activities')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
@@ -18,6 +18,26 @@ module.exports = {
       const httpError = createHttpError(
         err.statusCode,
         `[Error creating activity] - [activities - POST]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+
+  put: catchAsync(async (req, res, next) => {
+    const { id } = req.params
+    const { name, content, image } = req.body
+    try {
+      const response = await updateActivity(id, name, content, image)
+      return endpointResponse({
+        res,
+        code: 201,
+        message: 'Activity was updated successfully',
+        body: response,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error updating activity] - [activities - PUT]: ${err.message}`,
       )
       return next(httpError)
     }
