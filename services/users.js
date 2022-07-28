@@ -9,10 +9,7 @@ exports.findOneByEmail = (email) => User.findOne({
 })
 
 exports.createUser = async ({
-  firstName,
-  lastName,
-  email,
-  password,
+  firstName, lastName, email, password,
 }) => {
   try {
     const existingUser = await this.findOneByEmail(email)
@@ -52,11 +49,7 @@ exports.deleteUserBy = async (id) => {
 exports.updateUser = async (id, data) => {
   try {
     let {
-      firstName,
-      lastName,
-      email,
-      password,
-      photo,
+      firstName, lastName, email, password, photo,
     } = data
     const user = await User.findByPk(id)
     if (!user) {
@@ -94,9 +87,7 @@ exports.updateUser = async (id, data) => {
   }
 }
 
-exports.loginUser = async ({
-  email, password,
-}) => {
+exports.loginUser = async ({ email, password }) => {
   try {
     const user = await User.findOne({ where: { email } })
     if (!user || !bcrypt.compareSync(password, user.password)) {
