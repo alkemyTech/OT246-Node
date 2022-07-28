@@ -9,15 +9,16 @@ exports.findOneByEmail = (email) => User.findOne({
 })
 
 exports.createUser = async ({
-  firstName, lastName, email, password,
+  firstName,
+  lastName,
+  email,
+  password,
 }) => {
   try {
     const existingUser = await this.findOneByEmail(email)
-
     if (existingUser) {
       throw new ErrorObject('Email is already in use', 400)
     }
-
     const newUser = await User.create({
       roleId: 2,
       firstName,
@@ -25,11 +26,11 @@ exports.createUser = async ({
       email,
       password,
     })
-
     // removes password from returned user
     newUser.password = undefined
-
-    return newUser
+    // generate and return token
+    const token = generateToken({ email: newUser.dataValues.email })
+    return { user: newUser.dataValues, token }
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
