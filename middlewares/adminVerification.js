@@ -1,6 +1,6 @@
 const { ErrorObject } = require('../helpers/error')
 
-exports.isUserAdmin = async (req, res, next) => {
+exports.isUserAdmin = (req, res, next) => {
   try {
     const { roleId } = req.body
 
