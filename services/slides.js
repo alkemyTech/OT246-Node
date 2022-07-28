@@ -12,3 +12,15 @@ exports.getSlideById = async (id) => {
     throw new ErrorObject(err.message, 404)
   }
 }
+exports.deleteSlide = async (id) => {
+  try {
+    const slide = await Slide.findByPk(id)
+    if (!slide) {
+      throw new ErrorObject('Slide not found', 404)
+    }
+    await slide.destroy()
+    return slide
+  } catch (err) {
+    throw new ErrorObject(err.message, 404)
+  }
+}
