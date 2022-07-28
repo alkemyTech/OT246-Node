@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const {
   post,
-  put
+  put,
 } = require('../controllers/activities')
 const { validateSchema } = require('../middlewares/validations')
 const { activityBodyPost, activityBodyPut } = require('../schemas/activities')
