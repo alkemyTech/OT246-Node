@@ -22,6 +22,7 @@ module.exports = {
       return next(httpError)
     }
   }),
+
   post: catchAsync(async (req, res, next) => {
     const { body } = req
     try {
@@ -40,6 +41,7 @@ module.exports = {
       return next(httpError)
     }
   }),
+
   destroy: catchAsync(async (req, res, next) => {
     try {
       await deleteNewsById(req.params.id)
