@@ -28,5 +28,4 @@ const newBody = {
     notEmpty: { errorMessage: 'Must not be empty' },
   },
 }
-
 module.exports = { newBody }
