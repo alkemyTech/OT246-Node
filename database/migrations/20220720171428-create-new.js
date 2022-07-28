@@ -15,6 +15,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT,
       },
+      type: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
       image: {
         allowNull: false,
         type: Sequelize.STRING,
