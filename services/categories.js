@@ -51,3 +51,16 @@ exports.updateCategory = async (id, { name, description, image }) => {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
+
+exports.deleteCategory = async (id) => {
+  try {
+    const category = await Category.findByPk(id)
+    if (!category) {
+      throw new ErrorObject('Category not found', 404)
+    }
+    await category.destroy()
+    return category
+  } catch (err) {
+    throw new ErrorObject(err.message, 404)
+  }
+}
