@@ -6,12 +6,13 @@ const { endpointResponse } = require('../helpers/success')
 module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
+      const contacts = await getContacts()
       return endpointResponse({
         res,
         code: 200,
         status: true,
         message: 'OK',
-        body: await getContacts(),
+        body: contacts,
       })
     } catch (err) {
       const httpError = createHttpError(
