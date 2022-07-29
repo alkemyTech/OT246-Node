@@ -24,7 +24,7 @@ exports.getSlideAll = async () => {
   }
 }
 exports.deleteSlide = async (id) => {
-  try {
+ try {
     const slide = await Slide.findByPk(id)
     if (!slide) {
       throw new ErrorObject('Slide not found', 404)
@@ -33,5 +33,27 @@ exports.deleteSlide = async (id) => {
     return slide
   } catch (err) {
     throw new ErrorObject(err.message, 500)
+ }
+}
+exports.updateSlide = async (id, {
+  imageUrl,
+  text,
+  order,
+  organizationId,
+}) => {
+  try {
+    const slide = await Slide.findByPk(id)
+    if (!slide) {
+      throw new ErrorObject('Slide not found', 404)
+    }
+    const updatedSlide = await slide.update({
+      imageUrl,
+      text,
+      order,
+      organizationId,
+    })
+    return updatedSlide
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }

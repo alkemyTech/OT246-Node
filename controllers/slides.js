@@ -1,5 +1,5 @@
 const createHttpError = require('http-errors')
-const { getSlideById, getSlideAll, deleteSlide } = require('../services/slides')
+const { getSlideById, getSlideAll, updateSlide, deleteSlide } = require('../services/slides')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
@@ -22,6 +22,7 @@ module.exports = {
       next(httpError)
     }
   }),
+
   getAll: catchAsync(async (req, res, next) => {
     try {
       const slide = await getSlideAll()
@@ -49,13 +50,30 @@ module.exports = {
         code: 200,
         status: true,
         message: `Slide ${req.params.id} was deleted`,
+        } catch (err) {
+      const httpError = createHttpError(
+          err.statusCode,
+         `[Error deleting slide] - [slides - DELETE /slides/${req.params.id}] - ${err.message}`,
+      )      
+      return next(httpError
+     }
+  }),
+  put: catchAsync(async (req, res, next) => {
+    try {
+      const slide = await updateSlide(req.params.id, req.body)
+      endpointResponse({
+        res,
+        code: 200,
+        status: true,
+        message: 'Slide updated successfully',
+        body: slide,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error deleting slide] - [slides - DELETE /slides/${req.params.id}] - ${err.message}`,
+        `[Error updating slide] - [slides - PUT]: ${err.message}`,
       )
-      return next(httpError)
+      next(httpError)
     }
   }),
 }
