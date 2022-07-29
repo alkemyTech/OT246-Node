@@ -9,21 +9,17 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       phone: {
         type: Sequelize.INTEGER,
-        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       message: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
-      deleteAt: {
+      deletedAt: {
         type: Sequelize.DATE,
       },
       createdAt: {

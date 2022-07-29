@@ -18,9 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.INTEGER,
     message: DataTypes.STRING,
     email: DataTypes.STRING,
-    deleteAt: DataTypes.DATE,
   }, {
     sequelize,
+    timestamps: true,
+    paranoid: true,
     modelName: 'Contact',
   })
   return Contact
