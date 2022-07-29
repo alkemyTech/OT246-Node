@@ -13,11 +13,9 @@ exports.createUser = async ({
 }) => {
   try {
     const existingUser = await this.findOneByEmail(email)
-
     if (existingUser) {
       throw new ErrorObject('Email is already in use', 400)
     }
-
     const newUser = await User.create({
       roleId: 2,
       firstName,
@@ -25,11 +23,11 @@ exports.createUser = async ({
       email,
       password,
     })
-
     // removes password from returned user
     newUser.password = undefined
-
-    return newUser
+    // generate and return token
+    const token = generateToken({ email: newUser.dataValues.email })
+    return { user: newUser.dataValues, token }
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
@@ -63,11 +61,7 @@ exports.deleteUserBy = async (id) => {
 exports.updateUser = async (id, data) => {
   try {
     let {
-      firstName,
-      lastName,
-      email,
-      password,
-      photo,
+      firstName, lastName, email, password, photo,
     } = data
     const user = await User.findByPk(id)
     if (!user) {
@@ -105,9 +99,7 @@ exports.updateUser = async (id, data) => {
   }
 }
 
-exports.loginUser = async ({
-  email, password,
-}) => {
+exports.loginUser = async ({ email, password }) => {
   try {
     const user = await User.findOne({ where: { email } })
     if (!user || !bcrypt.compareSync(password, user.password)) {

@@ -52,15 +52,13 @@ module.exports = {
         email,
         password,
       })
-
       // { 0: registerTemplate }
-      await sendMailRegistration(newUser.email, { name: newUser.firstName })
-
+      await sendMailRegistration(newUser.user.email, { name: newUser.user.firstName })
       endpointResponse({
         res,
         code: 201,
         message: 'Account registered successfully',
-        body: newUser,
+        body: { user: newUser.user, token: newUser.token },
       })
     } catch (error) {
       const httpError = createHttpError(
