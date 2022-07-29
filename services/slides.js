@@ -12,6 +12,17 @@ exports.getSlideById = async (id) => {
     throw new ErrorObject(err.message, 404)
   }
 }
+exports.getSlideAll = async () => {
+  try {
+    const slide = await Slide.findAll({
+      attributes: { exclude: ['text', 'organizationId', 'id'] },
+    })
+
+    return slide
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode)
+  }
+}
 exports.deleteSlide = async (id) => {
   try {
     const slide = await Slide.findByPk(id)
@@ -21,6 +32,6 @@ exports.deleteSlide = async (id) => {
     await slide.destroy()
     return slide
   } catch (err) {
-    throw new ErrorObject(err.message, 404)
+    throw new ErrorObject(err.message, 500)
   }
 }
