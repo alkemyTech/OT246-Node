@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     email: DataTypes.STRING,
     welcomeText: DataTypes.STRING,
-    aboutUsText: DataTypes.STRING
+    aboutUsText: DataTypes.STRING,
+    facebook: DataTypes.STRING,
+    linkedin: DataTypes.STRING,
+    instagram: DataTypes.STRING
   }, {
     timestamps: true,
     paranoid: true,
