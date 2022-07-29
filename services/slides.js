@@ -13,6 +13,18 @@ exports.getSlideById = async (id) => {
   }
 }
 
+exports.getSlideAll = async () => {
+  try {
+    const slide = await Slide.findAll({
+      attributes: { exclude: ['text', 'organizationId', 'id'] },
+    })
+
+    return slide
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode)
+  }
+}
+
 exports.updateSlide = async (id, {
   imageUrl,
   text,
