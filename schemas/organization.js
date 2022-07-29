@@ -38,6 +38,24 @@ const organizationBody = {
     isNumeric: { errorMessage: 'Must contain numeric characters only' },
     optional: true,
   },
+  facebook: {
+    in: 'body',
+    trim: true,
+    notEmpty: { errorMessage: 'Must not be empty' },
+    isURL: { errorMessage: 'Must be a valid URL' },
+  },
+  instagram: {
+    in: 'body',
+    trim: true,
+    notEmpty: { errorMessage: 'Must not be empty' },
+    isURL: { errorMessage: 'Must be a valid URL' },
+  },
+  linkedin: {
+    in: 'body',
+    trim: true,
+    notEmpty: { errorMessage: 'Must not be empty' },
+    isURL: { errorMessage: 'Must be a valid URL' },
+  },
 }
 
 module.exports = { organizationBody }
