@@ -1,9 +1,10 @@
 const sgMail = require('@sendgrid/mail')
 const { ErrorObject } = require('../helpers/error')
 
-const registerTemplate = process.env.SENDGRID_ID_DYNAMIC_TEMPLATE
-
-const templates = { 0: registerTemplate }
+const templates = {
+  0: process.env.SENDGRID_ID_DYNAMIC_TEMPLATE_WELCOME,
+  1: process.env.SENDGRID_ID_DYNAMIC_TEMPLATE_CONTACT,
+}
 
 sgMail.setApiKey(process.env.SENDGRID_KEY)
 
@@ -30,4 +31,8 @@ const sendMail = async (mail, opCode, data) => {
 
 exports.sendMailRegistration = async (mail, data) => {
   await sendMail(mail, 0, data)
+}
+
+exports.sendMailRegistrationContact = async (mail, data) => {
+  await sendMail(mail, 1, data)
 }
