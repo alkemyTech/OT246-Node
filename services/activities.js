@@ -14,11 +14,7 @@ exports.updateActivity = async (id, data) => {
   try {
     const activity = await Activity.update(
       data,
-      {
-        where: {
-          id,
-        },
-      },
+      { where: { id } },
     )
     const [afectedRows] = activity
     if (afectedRows === 0) {
