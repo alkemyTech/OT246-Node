@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const { getById, getAll, put, destroy } = require('../controllers/slides')
+const { getById, getAll, put, destroy 
+  } = require('../controllers/slides')
 const { authUser } = require('../middlewares/authUser')
 const { isUserAdmin } = require('../middlewares/adminVerification')
 
