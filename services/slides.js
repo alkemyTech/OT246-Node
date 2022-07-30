@@ -1,5 +1,6 @@
 const { ErrorObject } = require('../helpers/error')
 const { Slide } = require('../database/models')
+const { uploadFile } = require('./uploadFile')
 
 exports.getSlideById = async (id) => {
   try {
@@ -52,5 +53,21 @@ exports.deleteSlide = async (id) => {
     return slide
   } catch (err) {
     throw new ErrorObject(err.message, 500)
+  }
+}
+exports.createSlide = async (data) => {
+  console.log(data)
+  const {
+    image, text, order, organizationId,
+  } = data
+  const imageUrl = uploadFile(image)
+  console.log(imageUrl)
+  try {
+    const slide = await Slide.create({
+      imageUrl, text, order, organizationId,
+    })
+    return slide
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
