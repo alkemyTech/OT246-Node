@@ -55,14 +55,14 @@ exports.deleteSlide = async (id) => {
     throw new ErrorObject(err.message, 500)
   }
 }
-exports.createSlide = async (data) => {
+exports.createSlide = async (file, data) => {
+  const { image } = file
+  console.log(image)
+  const { text, order, organizationId } = data
   console.log(data)
-  const {
-    image, text, order, organizationId,
-  } = data
-  const imageUrl = uploadFile(image)
-  console.log(imageUrl)
   try {
+    const imageUrl = await uploadFile(image)
+    console.log(imageUrl)
     const slide = await Slide.create({
       imageUrl, text, order, organizationId,
     })
