@@ -61,7 +61,7 @@ exports.createSlide = async (file, data) => {
   let order = null
   if (!data.order) {
     try {
-      const slide = Slide.findOne({
+      const slide = await Slide.findOne({
         order: [['order', 'DESC']],
       })
       order = slide.order + 1
