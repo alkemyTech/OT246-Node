@@ -57,12 +57,22 @@ exports.deleteSlide = async (id) => {
 }
 exports.createSlide = async (file, data) => {
   const { image } = file
-  console.log(image)
-  const { text, order, organizationId } = data
-  console.log(data)
+  const { text, organizationId } = data
+  let order = null
+  if (!data.order) {
+    try {
+      const slide = Slide.findOne({
+        order: [['order', 'DESC']],
+      })
+      order = slide.order + 1
+    } catch (err) {
+      throw new ErrorObject(err.message, err.statusCode || 500)
+    }
+  } else {
+    order = data.order
+  }
   try {
     const imageUrl = await uploadFile(image)
-    console.log(imageUrl)
     const slide = await Slide.create({
       imageUrl, text, order, organizationId,
     })
