@@ -11,13 +11,13 @@ module.exports = {
       return endpointResponse({
         res,
         code: 201,
-        message: 'Testimonial created successfully',
+        message: 'Member created successfully',
         body: response,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error creating testimonial] - [testimonials - POST]: ${err.message}`,
+        `[Error creating member] - [members - POST]: ${err.message}`,
       )
       return next(httpError)
     }
