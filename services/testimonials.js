@@ -18,3 +18,15 @@ exports.updateTestimonial = async (id, {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
+exports.createTestimonial = async ({ name, content, image }) => {
+  try {
+    const newTestimonial = await Testimonial.create({
+      name,
+      content,
+      image,
+    })
+    return newTestimonial
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
