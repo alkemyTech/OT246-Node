@@ -2,13 +2,6 @@ exports.testimonialsBody = {
   name: {
     in: 'body',
     trim: true,
-    isLength: { options: { min: 4 }, errorMessage: 'Name must be at least 4 characters long' },
-    matches: {
-      options: [
-        /^[a-zA-Z ]*$/,
-      ],
-      errorMessage: 'Name must be alphabetic',
-    },
     notEmpty: { errorMessage: 'Must not be empty' },
     optional: true,
   },
