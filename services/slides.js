@@ -55,24 +55,19 @@ exports.deleteSlide = async (id) => {
     throw new ErrorObject(err.message, 500)
   }
 }
-exports.createSlide = async (file, data) => {
-  const { image } = file
-  const { text, organizationId } = data
+exports.createSlide = async (data) => {
+  const { imageDataEncoded, text, organizationId } = data
   let order = null
-  if (!data.order) {
-    try {
+  try {
+    if (!data.order) {
       const slide = await Slide.findOne({
         order: [['order', 'DESC']],
       })
       order = slide.order + 1
-    } catch (err) {
-      throw new ErrorObject(err.message, err.statusCode || 500)
+    } else {
+      order = data.order
     }
-  } else {
-    order = data.order
-  }
-  try {
-    const imageUrl = await uploadFile(image)
+    const imageUrl = await uploadFile(imageDataEncoded, `slide${order}`)
     const slide = await Slide.create({
       imageUrl, text, order, organizationId,
     })
