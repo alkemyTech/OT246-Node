@@ -1,4 +1,4 @@
-const { Organization } = require('../database/models')
+const { Organization, Slide } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 
 /**
@@ -29,5 +29,19 @@ exports.updateOrganization = async (data) => {
     return organizationUpdated
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
+exports.getOrganizationSlide = async () => {
+  try {
+    const organization = await Organization.findOne({
+      attributes: ['id', 'name', 'image', 'phone', 'address', 'email'],
+    })
+    const slide = await Slide.finOne({
+      attributes: ['id', 'imagenUrl', 'text'],
+
+    })
+    return (organization, slide)
+  } catch (err) {
+    throw new ErrorObject(err.message, 500)
   }
 }
