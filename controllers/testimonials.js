@@ -47,12 +47,12 @@ module.exports = {
         res,
         code: 200,
         status: true,
-        message: `Testimonial ${req.params.id} was deleted`,
+        message: 'Testimonial successfully deleted',
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error deleting testimonial] - [testimonials - DELETE /testimonial/${req.params.id}] - ${err.message}`,
+        `[Error deleting testimonial] - [testimonials/${req.params.id} - DELETE ]: ${err.message}`,
       )
       return next(httpError)
     }
