@@ -1,3 +1,4 @@
+const { Buffer } = require('buffer')
 const { s3, createCommand } = require('./amazonS3')
 const { ErrorObject } = require('../helpers/error')
 
@@ -6,11 +7,12 @@ const config = {
   region: process.env.AWS_REGION,
 }
 
-exports.uploadFile = async (tempFile) => {
+const uploadFileAws = async (tempFile) => {
   const input = {
     Bucket: config.bucketName,
     Key: tempFile.name,
     Body: tempFile.data,
+    ContentType: 'image/jpeg',
   }
   try {
     const command = createCommand(input)
@@ -22,4 +24,14 @@ exports.uploadFile = async (tempFile) => {
   } catch (err) {
     throw new ErrorObject(err.message, 502)
   }
+}
+
+const decodeBase64 = (buffer64str) => Buffer.from(buffer64str, 'base64')
+
+exports.uploadFile = async (dataFile, name) => {
+  // 1. decode the file
+  const dataFileDecoded = decodeBase64(dataFile)
+  const nameFile = `${name}.jpg`
+  // 2 . upload file content
+  return uploadFileAws({ name: nameFile, data: dataFileDecoded })
 }
