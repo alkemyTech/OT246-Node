@@ -15,7 +15,7 @@ module.exports = {
         })
       } else {
         const token = req.headers.authorization.split(' ')[1]
-        verifyToken(token)
+        req.user = verifyToken(token)
         next()
       }
     } catch (err) {

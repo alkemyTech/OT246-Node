@@ -33,6 +33,18 @@ exports.createUser = async ({
   }
 }
 
+exports.getAllUsers = async () => {
+  try {
+    const users = User.findAll({
+      attributes: { exclude: ['password', 'deletedAt'] },
+    })
+
+    return users
+  } catch (err) {
+    throw new ErrorObject(err.message, 500)
+  }
+}
+
 exports.deleteUserBy = async (id) => {
   try {
     const deletedUser = await User.findByPk(id)
@@ -93,7 +105,7 @@ exports.loginUser = async ({ email, password }) => {
     if (!user || !bcrypt.compareSync(password, user.password)) {
       throw new ErrorObject('Invalid Credentials ', 401)
     }
-    const token = generateToken({ email: user.dataValues.email })
+    const token = generateToken({ email: user.dataValues.email, roleId: user.dataValues.roleId })
     return token
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)

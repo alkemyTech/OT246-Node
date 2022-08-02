@@ -1,4 +1,4 @@
-const newBody = {
+const newBodyPost = {
   name: {
     in: 'body',
     trim: true,
@@ -28,4 +28,24 @@ const newBody = {
     notEmpty: { errorMessage: 'Must not be empty' },
   },
 }
-module.exports = { newBody }
+
+const newBodyPut = {
+  name: {
+    ...newBodyPost.name,
+    optional: true,
+  },
+  content: {
+    ...newBodyPost.content,
+    optional: true,
+  },
+  image: {
+    ...newBodyPost.image,
+    optional: true,
+  },
+  categoryId: {
+    ...newBodyPost.categoryId,
+    optional: true,
+  },
+}
+
+module.exports = { newBodyPost, newBodyPut }

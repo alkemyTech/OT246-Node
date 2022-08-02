@@ -1,4 +1,4 @@
-const { S3Client, PutObject } = require('@aws-sdk/client-s3')
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3')
 
 exports.s3 = new S3Client({
   credentials: {
@@ -9,4 +9,4 @@ exports.s3 = new S3Client({
   signatureVersion: 'v4',
 })
 
-exports.createCommand = (params) => new PutObject(params)
+exports.createCommand = (params) => new PutObjectCommand(params)

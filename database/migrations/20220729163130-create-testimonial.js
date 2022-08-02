@@ -1,7 +1,4 @@
 'use strict';
-
-const sequelize = require("sequelize");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Testimonials', {
@@ -12,19 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        allowNull: false,
         type: Sequelize.STRING,
-       
+        allowNull: false,
       },
       image: {
-        allowNull: false,
-        type: Sequelize.STRING,
-       
+        type: Sequelize.STRING
       },
       content: {
+        type: Sequelize.TEXT,
         allowNull: false,
-        type: Sequelize.STRING,
-        
       },
       createdAt: {
         allowNull: false,
@@ -35,9 +28,8 @@ module.exports = {
         type: Sequelize.DATE
       },
       deletedAt: {
-        allowNull: true,
         type: Sequelize.DATE
-      },
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {

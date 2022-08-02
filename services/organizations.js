@@ -9,7 +9,7 @@ const { ErrorObject } = require('../helpers/error')
 exports.getOrganization = async () => {
   try {
     const result = await Organization.findOne({
-      attributes: ['id', 'name', 'image', 'phone', 'address'],
+      attributes: ['id', 'name', 'image', 'phone', 'address', 'facebook', 'instagram', 'linkedin'],
     })
 
     return result
@@ -25,7 +25,7 @@ exports.updateOrganization = async (data) => {
     if (updated === 0) {
       throw new ErrorObject('Organization not found', 404)
     }
-    const organizationUpdated = await Organization.findOne({ where: { id: 1 }, attributes: ['name', 'image', 'phone', 'address'] })
+    const organizationUpdated = await Organization.findOne({ where: { id: 1 }, attributes: ['name', 'image', 'phone', 'address', 'facebook', 'instagram', 'linkedin'] })
     return organizationUpdated
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode || 500)
