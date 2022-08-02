@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const { User } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
-const { generateToken, verifyToken } = require('../middlewares/jwt')
+const { generateToken } = require('../middlewares/jwt')
 
 exports.findOneByEmail = (email) => User.findOne({
   where: { email },
@@ -109,20 +109,5 @@ exports.loginUser = async ({ email, password }) => {
     return token
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
-  }
-}
-
-exports.findDataByAutentication = async (auth) => {
-  const token = auth.split(' ')[1]
-  const payload = verifyToken(token)
-  const { email } = payload
-  try {
-    const userData = await User.findOne({ where: { email } })
-    if (!userData) {
-      throw new ErrorObject('User not found', 404)
-    }
-    return userData
-  } catch (err) {
-    throw new ErrorObject(err.message, 404)
   }
 }
