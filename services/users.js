@@ -105,7 +105,7 @@ exports.loginUser = async ({ email, password }) => {
     if (!user || !bcrypt.compareSync(password, user.password)) {
       throw new ErrorObject('Invalid Credentials ', 401)
     }
-    const token = generateToken({ email: user.dataValues.email, roleId: user.dataValues.roleId })
+    const token = generateToken({ email: user.dataValues.email })
     return token
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
