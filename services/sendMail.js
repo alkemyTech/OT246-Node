@@ -29,8 +29,8 @@ const sendMail = async (mail, opCode, data) => {
   }
 }
 
-exports.sendMailRegistration = async (mail, data) => {
-  await sendMail(mail, 0, data)
+exports.sendMailRegistration = async (data) => {
+  await sendMail(data.email, 0, data)
 }
 
 exports.sendMailRegistrationContact = async (data) => {
