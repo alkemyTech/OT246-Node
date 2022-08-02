@@ -12,6 +12,7 @@ module.exports = {
   getById: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await getNewsById(req.params.id)
+
       return endpointResponse({
         res,
         code: 200,
@@ -31,6 +32,7 @@ module.exports = {
   post: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await createNew(req.body)
+
       return endpointResponse({
         res,
         code: 200,
@@ -49,6 +51,7 @@ module.exports = {
   put: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await updateNew(req.params.id, req.body)
+
       return endpointResponse({
         res,
         code: 200,
@@ -68,6 +71,7 @@ module.exports = {
   destroy: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await deleteNewsById(req.params.id)
+
       return endpointResponse({
         res,
         code: 200,
