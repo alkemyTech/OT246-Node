@@ -12,6 +12,7 @@ const uploadFileAws = async (tempFile) => {
     Bucket: config.bucketName,
     Key: tempFile.name,
     Body: tempFile.data,
+    ContentType: 'image/jpeg',
   }
   try {
     const command = createCommand(input)
