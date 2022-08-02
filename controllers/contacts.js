@@ -7,13 +7,13 @@ const { sendMailRegistrationContact } = require('../services/sendMail')
 module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
-      const contacts = await getContacts()
+      const responseBody = await getContacts()
       return endpointResponse({
         res,
         code: 200,
         status: true,
         message: 'OK',
-        body: contacts,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
@@ -25,12 +25,11 @@ module.exports = {
   }),
 
   post: catchAsync(async (req, res, next) => {
+    const { body } = req
     try {
-      const responseBody = await createContact(req.body)
-      await sendMailRegistrationContact(responseBody.email, {
-        name: responseBody.name,
-        email: responseBody.email,
-      })
+      const responseBody = await createContact(body)
+
+      await sendMailRegistrationContact(body.email, { name: body.name, email: body.email })
       endpointResponse({
         res,
         code: 201,
