@@ -23,14 +23,15 @@ module.exports = {
       return next(httpError)
     }
   }),
-  update: catchAsync(async (req, res, next) => {
+  post: catchAsync(async (req, res, next) => {
     try {
-      const toUpdate = await updateOrganization(req.body)
+      const responseBody = await updateOrganization(req.body)
+
       endpointResponse({
         res,
         code: 200,
-        message: 'Organization data was updated',
-        body: toUpdate,
+        message: 'Organization updated successfully',
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(

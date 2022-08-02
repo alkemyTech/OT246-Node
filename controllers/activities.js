@@ -5,14 +5,15 @@ const { endpointResponse } = require('../helpers/success')
 
 module.exports = {
   post: catchAsync(async (req, res, next) => {
-    const { name, content, image } = req.body
+    const { body: { name, content, image } } = req
     try {
-      const response = await createActivity(name, content, image)
+      const responseBody = await createActivity(name, content, image)
+
       return endpointResponse({
         res,
         code: 201,
-        message: 'Activity was created successfully',
-        body: response,
+        message: 'Activity created successfully',
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
@@ -24,20 +25,20 @@ module.exports = {
   }),
 
   put: catchAsync(async (req, res, next) => {
-    const { id } = req.params
-    const data = req.body
+    const { body, params: { id } } = req
     try {
-      const response = await updateActivity(id, data)
+      const responseBody = await updateActivity(id, body)
+
       return endpointResponse({
         res,
         code: 200,
-        message: 'Activity was updated successfully',
-        body: response,
+        message: 'Activity updated successfully',
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error updating activity] - [activities - PUT]: ${err.message}`,
+        `[Error updating activity] - [activities/${id} - PUT]: ${err.message}`,
       )
       return next(httpError)
     }

@@ -46,19 +46,19 @@ module.exports = {
     } = req
 
     try {
-      const newUser = await createUser({
+      const responseBody = await createUser({
         firstName,
         lastName,
         email,
         password,
       })
-      // { 0: registerTemplate }
-      await sendMailRegistration(newUser.user.email, { name: newUser.user.firstName })
+
+      await sendMailRegistration({ email, name: firstName })
       endpointResponse({
         res,
         code: 201,
         message: 'Account registered successfully',
-        body: { user: newUser.user, token: newUser.token },
+        body: responseBody,
       })
     } catch (error) {
       const httpError = createHttpError(
@@ -71,41 +71,41 @@ module.exports = {
   }),
 
   destroy: catchAsync(async (req, res, next) => {
-    const { id } = req.params
+    const { params: { id } } = req
     try {
       const resp = await deleteUserBy(id)
       return endpointResponse({
         res,
         code: 200,
         status: true,
-        message: 'user successfully deleted',
+        message: 'User successfully deleted',
         body: resp,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error removing user] - [users - DELETE]: ${err.message}`,
+        `[Error removing user] - [users/${id} - DELETE]: ${err.message}`,
       )
       return next(httpError)
     }
   }),
 
   put: catchAsync(async (req, res, next) => {
-    const { id } = req.params
-    const data = req.body
+    const { body, params: { id } } = req
     try {
-      const toUpdate = await updateUser(id, data)
+      const responseBody = await updateUser(id, body)
+
       return endpointResponse({
         res,
         code: 200,
         status: true,
-        message: 'data successfully updated',
-        body: toUpdate,
+        message: 'User successfully updated',
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error updating user] - [users - PATCH]: ${err.message}`,
+        `[Error updating user] - [users/${id} - PATCH]: ${err.message}`,
       )
       return next(httpError)
     }
@@ -133,7 +133,7 @@ module.exports = {
     } catch (error) {
       const httpError = createHttpError(
         error.statusCode,
-        `[Error login account] - [auth/login- POST]: ${error.message}`,
+        `[Error login account] - [auth/login - POST]: ${error.message}`,
       )
 
       next(httpError)
@@ -141,15 +141,16 @@ module.exports = {
   }),
 
   getData: catchAsync(async (req, res, next) => {
+    const { headers: { authorization } } = req
     try {
-      const myData = await findDataByAutentication(req.headers.authorization)
-      myData.password = 'password'
+      const responseBody = await findDataByAutentication(authorization)
+
       return endpointResponse({
         res,
         code: 200,
         status: true,
-        message: 'data get',
-        body: myData,
+        message: 'OK',
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
