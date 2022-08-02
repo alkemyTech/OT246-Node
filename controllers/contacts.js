@@ -8,6 +8,7 @@ module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await getContacts()
+
       return endpointResponse({
         res,
         code: 200,
