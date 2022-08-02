@@ -30,7 +30,7 @@ module.exports = {
     try {
       const responseBody = await createContact(body)
 
-      await sendMailRegistrationContact(body.email, { name: body.name, email: body.email })
+      await sendMailRegistrationContact({ name: body.name, email: body.email })
       endpointResponse({
         res,
         code: 201,

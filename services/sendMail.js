@@ -33,6 +33,6 @@ exports.sendMailRegistration = async (mail, data) => {
   await sendMail(mail, 0, data)
 }
 
-exports.sendMailRegistrationContact = async (mail, data) => {
-  await sendMail(mail, 1, data)
+exports.sendMailRegistrationContact = async (data) => {
+  await sendMail(data.email, 1, data)
 }
