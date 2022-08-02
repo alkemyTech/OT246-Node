@@ -9,6 +9,7 @@ module.exports = {
   getById: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await getSlideById(req.params.id)
+
       endpointResponse({
         res,
         code: 200,
@@ -27,6 +28,7 @@ module.exports = {
   getAll: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await getSlideAll()
+
       endpointResponse({
         res,
         code: 200,
@@ -46,6 +48,7 @@ module.exports = {
   put: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await updateSlide(req.params.id, req.body)
+
       endpointResponse({
         res,
         code: 200,
@@ -64,6 +67,7 @@ module.exports = {
   destroy: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await deleteSlide(req.params.id)
+
       return endpointResponse({
         res,
         code: 200,
