@@ -1,5 +1,6 @@
 const { ErrorObject } = require('../helpers/error')
 const { Slide } = require('../database/models')
+const { uploadFile } = require('./uploadFile')
 
 exports.getSlideById = async (id) => {
   try {
@@ -52,5 +53,26 @@ exports.deleteSlide = async (id) => {
     return slide
   } catch (err) {
     throw new ErrorObject(err.message, 500)
+  }
+}
+exports.createSlide = async (data) => {
+  const { imageDataEncoded, text, organizationId } = data
+  let order = null
+  try {
+    if (!data.order) {
+      const slide = await Slide.findOne({
+        order: [['order', 'DESC']],
+      })
+      order = slide.order + 1
+    } else {
+      order = data.order
+    }
+    const imageUrl = await uploadFile(imageDataEncoded, `slide${order}`)
+    const slide = await Slide.create({
+      imageUrl, text, order, organizationId,
+    })
+    return slide
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }

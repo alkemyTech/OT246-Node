@@ -26,8 +26,8 @@ exports.createUser = async ({
     // removes password from returned user
     newUser.password = undefined
     // generate and return token
-    const token = generateToken({ email: newUser.dataValues.email })
-    return { user: newUser.dataValues, token }
+    const tokenUser = generateToken({ email: newUser.dataValues.email })
+    return { user: newUser.dataValues, token: tokenUser }
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
@@ -121,6 +121,7 @@ exports.findDataByAutentication = async (auth) => {
     if (!userData) {
       throw new ErrorObject('User not found', 404)
     }
+    userData.password = 'password'
     return userData
   } catch (err) {
     throw new ErrorObject(err.message, 404)

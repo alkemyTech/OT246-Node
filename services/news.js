@@ -8,7 +8,7 @@ exports.getNewsById = async (id) => {
       attributes: ['id', 'name', 'content', 'image', 'categoryId'],
     })
     if (!newsById) {
-      throw new ErrorObject('Not found', 404)
+      throw new ErrorObject('Not found News', 404)
     }
     return newsById
   } catch (err) {
@@ -68,11 +68,10 @@ exports.updateNew = async (id, {
 
 exports.deleteNewsById = async (id) => {
   try {
-    const newsById = await New.findByPk(id)
-    if (!newsById) {
-      throw new ErrorObject('Not found', 404)
-    }
+    const newsById = await this.getNewsById(id)
+
     await newsById.destroy()
+    return newsById
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
