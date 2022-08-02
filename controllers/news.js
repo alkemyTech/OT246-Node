@@ -10,8 +10,9 @@ const { endpointResponse } = require('../helpers/success')
 
 module.exports = {
   getById: catchAsync(async (req, res, next) => {
+    const { params: { id } } = req
     try {
-      const responseBody = await getNewsById(req.params.id)
+      const responseBody = await getNewsById(id)
 
       return endpointResponse({
         res,
@@ -23,19 +24,20 @@ module.exports = {
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving news] - [news - GET /news/${req.params.id}]: ${err.message}`,
+        `[Error retrieving news] - [news/${id} - GET]: ${err.message}`,
       )
       return next(httpError)
     }
   }),
 
   post: catchAsync(async (req, res, next) => {
+    const { body } = req
     try {
-      const responseBody = await createNew(req.body)
+      const responseBody = await createNew(body)
 
       return endpointResponse({
         res,
-        code: 200,
+        code: 201,
         message: 'New created successfully',
         body: responseBody,
       })
@@ -49,8 +51,9 @@ module.exports = {
   }),
 
   put: catchAsync(async (req, res, next) => {
+    const { body, params: { id } } = req
     try {
-      const responseBody = await updateNew(req.params.id, req.body)
+      const responseBody = await updateNew(id, body)
 
       return endpointResponse({
         res,
@@ -62,15 +65,16 @@ module.exports = {
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error updating news] - [news - PUT /news/${req.params.id}]: ${err.message}`,
+        `[Error updating news] - [news/${id} - PUT]: ${err.message}`,
       )
       return next(httpError)
     }
   }),
 
   destroy: catchAsync(async (req, res, next) => {
+    const { params: { id } } = req
     try {
-      const responseBody = await deleteNewsById(req.params.id)
+      const responseBody = await deleteNewsById(id)
 
       return endpointResponse({
         res,
@@ -82,7 +86,7 @@ module.exports = {
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error deleting news] - [news - DELETE /news/${req.params.id}]: ${err.message}`,
+        `[Error deleting news] - [news/${id} - DELETE ]: ${err.message}`,
       )
       return next(httpError)
     }
