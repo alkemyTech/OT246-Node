@@ -5,14 +5,15 @@ const { endpointResponse } = require('../helpers/success')
 
 module.exports = {
   post: catchAsync(async (req, res, next) => {
-    const { name, content, image } = req.body
+    const { body: { name, content, image } } = req
     try {
-      const response = await createActivity(name, content, image)
+      const responseBody = await createActivity(name, content, image)
+
       return endpointResponse({
         res,
         code: 201,
         message: 'Activity was created successfully',
-        body: response,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
