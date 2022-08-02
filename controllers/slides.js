@@ -83,19 +83,20 @@ module.exports = {
     }
   }),
   post: catchAsync(async (req, res, next) => {
+    const { body } = req
     try {
-      const slide = await createSlide(req.body)
+      const responseBody = await createSlide(body)
       endpointResponse({
         res,
         code: 200,
         status: true,
         message: 'Slide created successfully',
-        body: slide,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error creating slide] - [slides - POST]: ${err.message}`,
+        `[Error creating slide] - [slide - POST]: ${err.message}`,
       )
       next(httpError)
     }
