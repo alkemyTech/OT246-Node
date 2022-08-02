@@ -5,7 +5,7 @@ const { generateToken } = require('../middlewares/jwt')
 
 exports.findOneByEmail = (email) => User.findOne({
   where: { email },
-  attributes: { exclude: ['password'] },
+  attributes: { exclude: ['password', 'deletedAt'] },
 })
 
 exports.createUser = async ({
