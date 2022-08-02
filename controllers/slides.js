@@ -84,7 +84,7 @@ module.exports = {
   }),
   post: catchAsync(async (req, res, next) => {
     try {
-      const slide = await createSlide(req.files, req.body)
+      const slide = await createSlide(req.body)
       endpointResponse({
         res,
         code: 200,
