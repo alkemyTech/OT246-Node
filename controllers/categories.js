@@ -104,7 +104,7 @@ module.exports = {
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error dleting category] - [categories/${id} - DELETE]: ${err.message}`,
+        `[Error deleting category] - [categories/${id} - DELETE]: ${err.message}`,
       )
       return next(httpError)
     }
