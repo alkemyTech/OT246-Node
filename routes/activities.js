@@ -11,6 +11,6 @@ const { isUserAdmin } = require('../middlewares/adminVerification')
 const router = Router()
 
 router.post('/', authUser, validateSchema(activityBodyPost), post)
-router.put('/:id', authUser, isUserAdmin, validateSchema(activityBodyPut), put)
+router.put('/:id', isUserAdmin, validateSchema(activityBodyPut), put)
 
 module.exports = router
