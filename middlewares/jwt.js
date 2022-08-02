@@ -16,7 +16,7 @@ module.exports = {
       const verifyToken = jwt.verify(token, process.env.JWT_SECRET)
       return verifyToken
     } catch (err) {
-      throw new Error('Error while verifying token')
+      throw new jwt.JsonWebTokenError('Error while verifying token')
     }
   },
 }
