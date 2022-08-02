@@ -12,13 +12,14 @@ const { endpointResponse } = require('../helpers/success')
 module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
-      const response = await getCategories()
+      const responseBody = await getCategories()
+
       return endpointResponse({
         res,
         code: 200,
         status: true,
         message: 'OK',
-        body: response,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
@@ -31,14 +32,14 @@ module.exports = {
 
   getById: catchAsync(async (req, res, next) => {
     const { params: { id } } = req
-
     try {
-      const response = await getCategoryById(id)
+      const responseBody = await getCategoryById(id)
+
       return endpointResponse({
         res,
         code: 200,
         message: 'Category retrieved successfully',
-        body: response,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
@@ -52,12 +53,13 @@ module.exports = {
   post: catchAsync(async (req, res, next) => {
     const { body } = req
     try {
-      const response = await createCategory(body)
+      const responseBody = await createCategory(body)
+
       return endpointResponse({
         res,
         code: 201,
         message: 'Category created successfully',
-        body: response,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
@@ -70,14 +72,14 @@ module.exports = {
 
   put: catchAsync(async (req, res, next) => {
     const { body, params: { id } } = req
-
     try {
-      const response = await updateCategory(id, body)
+      const responseBody = await updateCategory(id, body)
+
       return endpointResponse({
         res,
         code: 200,
         message: 'Category updated successfully',
-        body: response,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
@@ -88,20 +90,21 @@ module.exports = {
     }
   }),
   destroy: catchAsync(async (req, res, next) => {
-    const { id } = req.params
+    const { params: { id } } = req
     try {
-      const resp = await deleteCategory(id)
+      const responseBody = await deleteCategory(id)
+
       return endpointResponse({
         res,
         code: 200,
         status: true,
-        message: 'category successfully deleted',
-        body: resp,
+        message: 'Category successfully deleted',
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error removing category] - [categories - DELETE]: ${err.message}`,
+        `[Error dleting category] - [categories/${id} - DELETE]: ${err.message}`,
       )
       return next(httpError)
     }
