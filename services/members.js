@@ -1,22 +1,11 @@
 const { Member } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 
-exports.createMember = async ({
-  name,
-  facebookUrl,
-  instagramUrl,
-  linkedinUrl,
-  image,
-  description,
-}) => {
+exports.createMember = async ({ name, image }) => {
   try {
     const newMember = await Member.create({
       name,
-      facebookUrl,
-      instagramUrl,
-      linkedinUrl,
       image,
-      description,
     })
     return newMember
   } catch (err) {
