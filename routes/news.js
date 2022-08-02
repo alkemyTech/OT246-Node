@@ -11,7 +11,7 @@ const { newBodyPost, newBodyPut } = require('../schemas/news')
 
 router.get('/:id', authUser, getById)
 router.post('/', authUser, validateSchema(newBodyPost), post)
-router.put(':/id', authUser, validateSchema(newBodyPut), put)
+router.put('/:id', put)
 router.delete('/:id', authUser, destroy)
 
 module.exports = router
