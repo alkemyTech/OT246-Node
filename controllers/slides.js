@@ -8,13 +8,13 @@ const { endpointResponse } = require('../helpers/success')
 module.exports = {
   getById: catchAsync(async (req, res, next) => {
     try {
-      const slide = await getSlideById(req.params.id)
+      const responseBody = await getSlideById(req.params.id)
       endpointResponse({
         res,
         code: 200,
         status: true,
-        message: 'Slide',
-        body: slide,
+        message: 'Slide retrieved successfully',
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
@@ -26,13 +26,13 @@ module.exports = {
   }),
   getAll: catchAsync(async (req, res, next) => {
     try {
-      const slide = await getSlideAll()
+      const responseBody = await getSlideAll()
       endpointResponse({
         res,
         code: 200,
         status: true,
         message: 'Slides retrieved successfully',
-        body: slide,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
@@ -45,13 +45,13 @@ module.exports = {
   }),
   put: catchAsync(async (req, res, next) => {
     try {
-      const slide = await updateSlide(req.params.id, req.body)
+      const responseBody = await updateSlide(req.params.id, req.body)
       endpointResponse({
         res,
         code: 200,
         status: true,
         message: 'Slide updated successfully',
-        body: slide,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
@@ -63,12 +63,13 @@ module.exports = {
   }),
   destroy: catchAsync(async (req, res, next) => {
     try {
-      await deleteSlide(req.params.id)
+      const responseBody = await deleteSlide(req.params.id)
       return endpointResponse({
         res,
         code: 200,
         status: true,
-        message: `Slide ${req.params.id} was deleted`,
+        message: 'Slide successfully deleted',
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
