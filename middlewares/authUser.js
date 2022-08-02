@@ -10,7 +10,7 @@ module.exports = {
       } else {
         const httpError = createHttpError(
           401,
-          'You must be logged in to access this resource',
+          'Invalid login credentials',
         )
         next(httpError)
       }
