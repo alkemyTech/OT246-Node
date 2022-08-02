@@ -26,6 +26,7 @@ module.exports = {
   post: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await updateOrganization(req.body)
+
       endpointResponse({
         res,
         code: 200,
