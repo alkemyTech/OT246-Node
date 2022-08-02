@@ -16,7 +16,7 @@ module.exports = {
         res,
         code: 200,
         status: true,
-        message: 'OK',
+        message: 'News retrieved successfully',
         body: responseBody,
       })
     } catch (err) {
@@ -29,14 +29,13 @@ module.exports = {
   }),
 
   post: catchAsync(async (req, res, next) => {
-    const { body } = req
     try {
-      const response = await createNew(body)
+      const responseBody = await createNew(req.body)
       return endpointResponse({
         res,
-        code: 201,
+        code: 200,
         message: 'New created successfully',
-        body: response,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
@@ -50,7 +49,6 @@ module.exports = {
   put: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await updateNew(req.params.id, req.body)
-
       return endpointResponse({
         res,
         code: 200,
@@ -69,12 +67,13 @@ module.exports = {
 
   destroy: catchAsync(async (req, res, next) => {
     try {
-      await deleteNewsById(req.params.id)
+      const responseBody = await deleteNewsById(req.params.id)
       return endpointResponse({
         res,
         code: 200,
         status: true,
-        message: `The news with ${req.params.id} has been deleted`,
+        message: 'News successfully deleted',
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(

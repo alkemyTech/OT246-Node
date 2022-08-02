@@ -73,6 +73,7 @@ exports.deleteNewsById = async (id) => {
       throw new ErrorObject('Not found', 404)
     }
     await newsById.destroy()
+    return newsById
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
