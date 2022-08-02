@@ -139,11 +139,17 @@ module.exports = {
     }
   }),
 
-  getData: (req, res) => endpointResponse({
-    res,
-    code: 200,
-    status: true,
-    message: 'data get',
-    body: req.user,
-  }),
+  getData: (req, res) => {
+    // create a copy of req.user to delete roleId
+    const user = JSON.parse(JSON.stringify(req.user))
+    delete user.roleId
+
+    return endpointResponse({
+      res,
+      code: 200,
+      status: true,
+      message: 'data get',
+      body: user,
+    })
+  },
 }
