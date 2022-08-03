@@ -4,7 +4,7 @@ const { ErrorObject } = require('../helpers/error')
 exports.getComments = async () => {
   try {
     const comments = await Comment.findAll({
-      order: ['createdAt', 'DESC'],
+      order: [['createdAt', 'DESC']],
       attributes: ['body'],
     })
 
