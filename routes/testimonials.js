@@ -1,12 +1,11 @@
 const router = require('express').Router()
 const { post, put, destroy } = require('../controllers/testimonials')
-const { authUser } = require('../middlewares/authUser')
-const { isUserAdmin } = require('../middlewares/adminVerification')
+const { isUserAdmin } = require('../middlewares/authUserAdmin')
 const { validateSchema } = require('../middlewares/validations')
 const { testimonialBody } = require('../schemas/testimonials')
 
-router.post('/', authUser, isUserAdmin, validateSchema(testimonialBody), post)
-router.put('/:id', authUser, isUserAdmin, put)
-router.delete('/:id', authUser, isUserAdmin, destroy)
+router.post('/', isUserAdmin, validateSchema(testimonialBody), post)
+router.put('/:id', isUserAdmin, put)
+router.delete('/:id', isUserAdmin, destroy)
 
 module.exports = router
