@@ -12,21 +12,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      facebookUrl: {
-        type: Sequelize.STRING
-      },
-      instagramUrl: {
-        type: Sequelize.STRING
-      },
-      linkedinUrl: {
-        type: Sequelize.STRING
-      },
       image: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      description: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

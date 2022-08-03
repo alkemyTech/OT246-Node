@@ -30,3 +30,15 @@ exports.createTestimonial = async ({ name, content, image }) => {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
+exports.deleteTestimonial = async (id) => {
+  try {
+    const testimonial = await Testimonial.findByPk(id)
+    if (!testimonial) {
+      throw new ErrorObject('Testimonial not found', 404)
+    }
+    await testimonial.destroy()
+    return testimonial
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
