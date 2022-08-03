@@ -1,9 +1,9 @@
 const createHttpError = require('http-errors')
-const { setUserInRequest } = require('./setUserInRequest')
+const { isUserValid } = require('./auth')
 
 module.exports = {
   authUser: [
-    setUserInRequest,
+    isUserValid,
     (req, res, next) => {
       if (req.user) {
         next()
