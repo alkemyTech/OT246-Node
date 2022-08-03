@@ -7,7 +7,7 @@ const { contactBodyPost } = require('../schemas/contacts')
 
 const router = Router()
 
-router.get('/', authUser, isUserAdmin, get)
+router.get('/', isUserAdmin, get)
 router.post('/', authUser, validateSchema(contactBodyPost), post)
 
 module.exports = router

@@ -6,7 +6,6 @@ const {
   deleteUserBy,
   updateUser,
   loginUser,
-  findDataByAutentication,
 } = require('../services/users')
 
 const { sendMailRegistration } = require('../services/sendMail')
@@ -140,6 +139,7 @@ module.exports = {
     }
   }),
 
+<<<<<<< HEAD
   getData: catchAsync(async (req, res, next) => {
     const { headers: { authorization } } = req
     try {
@@ -161,4 +161,19 @@ module.exports = {
     }
   }),
 
+=======
+  getData: (req, res) => {
+    // create a copy of req.user to delete roleId
+    const user = JSON.parse(JSON.stringify(req.user))
+    delete user.roleId
+
+    return endpointResponse({
+      res,
+      code: 200,
+      status: true,
+      message: 'data get',
+      body: user,
+    })
+  },
+>>>>>>> c3d137eabbf360d3fd3122784712f8ed1ef48ab9
 }
