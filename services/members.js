@@ -12,3 +12,13 @@ exports.createMember = async ({ name, image }) => {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
+
+exports.getMembers = async () => {
+  try {
+    const members = await Member.findAll()
+
+    return members
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
