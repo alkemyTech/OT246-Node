@@ -111,3 +111,8 @@ exports.loginUser = async ({ email, password }) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.showUserData = (userData) => {
+  const user = JSON.parse(JSON.stringify(userData))
+  return delete user.roleId
+}

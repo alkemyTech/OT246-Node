@@ -12,5 +12,6 @@ router.get('/:id', getById)
 router.get('/', getAll)
 router.put('/:id', isUserAdmin, put)
 router.delete('/:id', isUserAdmin, destroy)
+router.post('/', isUserAdmin, post)
 
 module.exports = router
