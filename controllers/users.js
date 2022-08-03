@@ -6,7 +6,7 @@ const {
   deleteUserBy,
   updateUser,
   loginUser,
-  findDataByAutentication,
+  showUserData,
 } = require('../services/users')
 
 const { sendMailRegistration } = require('../services/sendMail')
@@ -140,25 +140,16 @@ module.exports = {
     }
   }),
 
-  getData: catchAsync(async (req, res, next) => {
-    const { headers: { authorization } } = req
-    try {
-      const responseBody = await findDataByAutentication(authorization)
+  getData: (req, res) => {
+    const { user } = req
+    const responseBody = showUserData(user)
 
-      return endpointResponse({
-        res,
-        code: 200,
-        status: true,
-        message: 'OK',
-        body: responseBody,
-      })
-    } catch (err) {
-      const httpError = createHttpError(
-        err.statusCode,
-        `[Error getting user data] - [users - GET DATA]: ${err.message}`,
-      )
-      return next(httpError)
-    }
-  }),
-
+    return endpointResponse({
+      res,
+      code: 200,
+      status: true,
+      message: 'User retrieved successfully',
+      body: responseBody,
+    })
+  },
 }
