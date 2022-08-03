@@ -3,18 +3,18 @@ const { JsonWebTokenError } = require('jsonwebtoken')
 const { findOneByEmail } = require('../services/users')
 const { verifyToken } = require('./jwt')
 
+const validateUser = (authHeader = '') => {
+  const token = authHeader.split(' ')[1]
+  const decoded = verifyToken(token)
+  return findOneByEmail(decoded.email)
+}
+
 exports.setUserInRequest = async (req, res, next) => {
+  const { headers: { authorization } } = req
   try {
-    if (req.headers.authorization) {
-      const token = req.headers.authorization.split(' ')[1]
-      const decoded = verifyToken(token)
-      const user = await findOneByEmail(decoded.email)
+    const userAuth = await validateUser(authorization)
 
-      req.user = user
-    } else {
-      req.user = null
-    }
-
+    req.user = userAuth.dataValues
     next()
   } catch (err) {
     if (err instanceof JsonWebTokenError || err.statusCode === 404) {

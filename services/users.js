@@ -114,5 +114,6 @@ exports.loginUser = async ({ email, password }) => {
 
 exports.showUserData = (userData) => {
   const user = JSON.parse(JSON.stringify(userData))
-  return delete user.roleId
+  delete user.roleId
+  return user
 }
