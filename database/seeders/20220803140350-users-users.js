@@ -7,8 +7,8 @@ module.exports = {
       {
         firstName: "nombre1",
         lastName: "usuario admin",
-        email: "usuarioadmin@mail.com",
-        password: await hash("ABCD_efgh_1234", 10),
+        email: "usuarioadmin1@mail.com",
+        password: await hash("ABCZ_efgi_1230", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "1",
         createdAt: new Date(),
@@ -17,8 +17,8 @@ module.exports = {
       {
         firstName: "nombre2",
         lastName: "usuario admin",
-        email: "usuarioadmin@mail.com",
-        password: await hash("ABCD_efgh_1234", 10),
+        email: "usuarioadmin2@mail.com",
+        password: await hash("ABCZ_efgi_1230", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "1",
         createdAt: new Date(),
@@ -27,8 +27,8 @@ module.exports = {
       {
         firstName: "nombre3",
         lastName: "usuario admin",
-        email: "usuarioadmin@mail.com",
-        password: await hash("ABCD_efgh_1234", 10),
+        email: "usuarioadmin3@mail.com",
+        password: await hash("ABCZ_efgi_1230", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "1",
         createdAt: new Date(),
@@ -37,8 +37,8 @@ module.exports = {
       {
         firstName: "nombre4",
         lastName: "usuario admin",
-        email: "usuarioadmin@mail.com",
-        password: await hash("ABCD_efgh_1234", 10),
+        email: "usuarioadmin4@mail.com",
+        password: await hash("ABCZ_efgi_1230", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "1",
         createdAt: new Date(),
@@ -47,8 +47,8 @@ module.exports = {
       {
         firstName: "nombre5",
         lastName: "usuario admin",
-        email: "usuarioadmin@mail.com",
-        password: await hash("ABCD_efgh_1234", 10),
+        email: "usuarioadmin5@mail.com",
+        password: await hash("ABCZ_efgi_1230", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "1",
         createdAt: new Date(),
@@ -57,8 +57,8 @@ module.exports = {
       {
         firstName: "nombre6",
         lastName: "usuario admin",
-        email: "usuarioadmin@mail.com",
-        password: await hash("ABCD_efgh_1234", 10),
+        email: "usuarioadmin6@mail.com",
+        password: await hash("ABCZ_efgi_1230", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "1",
         createdAt: new Date(),
@@ -67,8 +67,8 @@ module.exports = {
       {
         firstName: "nombre6",
         lastName: "usuario admin",
-        email: "usuarioadmin@mail.com",
-        password: await hash("ABCD_efgh_1234", 10),
+        email: "usuarioadmin7@mail.com",
+        password: await hash("ABCZ_efgi_1230", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "1",
         createdAt: new Date(),
@@ -77,8 +77,8 @@ module.exports = {
       {
         firstName: "nombre8",
         lastName: "usuario admin",
-        email: "usuarioadmin@mail.com",
-        password: await hash("ABCD_efgh_1234", 10),
+        email: "usuarioadmin8@mail.com",
+        password: await hash("ABCZ_efgi_1230", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "1",
         createdAt: new Date(),
@@ -87,8 +87,8 @@ module.exports = {
       {
         firstName: "nombre9",
         lastName: "usuario admin",
-        email: "usuarioadmin@mail.com",
-        password: await hash("ABCD_efgh_1234", 10),
+        email: "usuarioadmin9@mail.com",
+        password: await hash("ABCZ_efgi_1230", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "1",
         createdAt: new Date(),
@@ -97,8 +97,8 @@ module.exports = {
       {
         firstName: "nombre10",
         lastName: "usuario admin",
-        email: "usuarioadmin@mail.com",
-        password: await hash("ABCD_efgh_1234", 10),
+        email: "usuarioadmin10@mail.com",
+        password: await hash("ABCZ_efgi_1230", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "1",
         createdAt: new Date(),
@@ -107,7 +107,7 @@ module.exports = {
       {
         firstName: "nombre1",
         lastName: "usuario comun",
-        email: "usuariocomun@mail.com",
+        email: "usuariocomun1@mail.com",
         password: await hash("ABCD_efgh_1234", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "2",
@@ -117,7 +117,7 @@ module.exports = {
       {
         firstName: "nombre2",
         lastName: "usuario comun",
-        email: "usuariocomun@mail.com",
+        email: "usuariocomun2@mail.com",
         password: await hash("ABCD_efgh_1234", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "2",
@@ -127,7 +127,7 @@ module.exports = {
       {
         firstName: "nombre3",
         lastName: "usuario comun",
-        email: "usuariocomun@mail.com",
+        email: "usuariocomun3@mail.com",
         password: await hash("ABCD_efgh_1234", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "2",
@@ -137,7 +137,7 @@ module.exports = {
       {
         firstName: "nombre4",
         lastName: "usuario comun",
-        email: "usuariocomun@mail.com",
+        email: "usuariocomun4@mail.com",
         password: await hash("ABCD_efgh_1234", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "2",
@@ -147,7 +147,7 @@ module.exports = {
       {
         firstName: "nombre5",
         lastName: "usuario comun",
-        email: "usuariocomun@mail.com",
+        email: "usuariocomun5@mail.com",
         password: await hash("ABCD_efgh_1234", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "2",
@@ -157,7 +157,7 @@ module.exports = {
       {
         firstName: "nombre6",
         lastName: "usuario comun",
-        email: "usuariocomun@mail.com",
+        email: "usuariocomun6@mail.com",
         password: await hash("ABCD_efgh_1234", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "2",
@@ -167,7 +167,7 @@ module.exports = {
       {
         firstName: "nombre7",
         lastName: "usuario comun",
-        email: "usuariocomun@mail.com",
+        email: "usuariocomun7@mail.com",
         password: await hash("ABCD_efgh_1234", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "2",
@@ -177,7 +177,7 @@ module.exports = {
       {
         firstName: "nombre8",
         lastName: "usuario comun",
-        email: "usuariocomun@mail.com",
+        email: "usuariocomun8@mail.com",
         password: await hash("ABCD_efgh_1234", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "2",
@@ -187,7 +187,7 @@ module.exports = {
       {
         firstName: "nombre9",
         lastName: "usuario comun",
-        email: "usuariocomun@mail.com",
+        email: "usuariocomun9@mail.com",
         password: await hash("ABCD_efgh_1234", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "2",
@@ -197,7 +197,7 @@ module.exports = {
       {
         firstName: "nombre10",
         lastName: "usuario comun",
-        email: "usuariocomun@mail.com",
+        email: "usuariocomun10@mail.com",
         password: await hash("ABCD_efgh_1234", 10),
         photo: "https://thumbs.dreamstime.com/b/icono-en-estilo-plano-de-la-persona-del-usuario-para-el-sitio-web-ejemplo-vector-131140097.jpg",
         roleId: "2",
