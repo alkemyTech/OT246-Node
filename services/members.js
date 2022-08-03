@@ -22,6 +22,6 @@ exports.deleteMember = async (id) => {
     await member.destroy()
     return member
   } catch (err) {
-    throw new ErrorObject(err.message, 500)
+    throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
