@@ -6,12 +6,12 @@ const {
   destroy,
   post,
 } = require('../controllers/slides')
-const { isUserAdmin } = require('../middlewares/authUserAdmin')
+const { authUserAdmin } = require('../middlewares/authUserAdmin')
 
 router.get('/:id', getById)
 router.get('/', getAll)
-router.put('/:id', isUserAdmin, put)
-router.delete('/:id', isUserAdmin, destroy)
-router.post('/', isUserAdmin, post)
+router.put('/:id', authUserAdmin, put)
+router.delete('/:id', authUserAdmin, destroy)
+router.post('/', authUserAdmin, post)
 
 module.exports = router

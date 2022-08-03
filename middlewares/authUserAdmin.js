@@ -1,7 +1,7 @@
 const { ErrorObject } = require('../helpers/error')
 const { authUser } = require('./authUser')
 
-exports.isUserAdmin = [
+exports.authUserAdmin = [
   authUser,
   (req, res, next) => {
     if (req.user && req.user.roleId === 1) {
