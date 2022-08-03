@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { getContacts } = require('../controllers/backoffice')
-const { isUserAdmin } = require('../middlewares/adminVerification')
+const { isUserAdmin } = require('../middlewares/authUserAdmin')
 
 const router = Router()
 

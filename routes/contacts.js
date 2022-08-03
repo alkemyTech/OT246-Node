@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { get, post } = require('../controllers/contacts')
 const { authUser } = require('../middlewares/authUser')
-const { isUserAdmin } = require('../middlewares/adminVerification')
+const { isUserAdmin } = require('../middlewares/authUserAdmin')
 const { validateSchema } = require('../middlewares/validations')
 const { contactBodyPost } = require('../schemas/contacts')
 

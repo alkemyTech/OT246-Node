@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const { post, put } = require('../controllers/testimonials')
-const { isUserAdmin } = require('../middlewares/adminVerification')
+const { isUserAdmin } = require('../middlewares/authUserAdmin')
 const { validateSchema } = require('../middlewares/validations')
 const { testimonialBody } = require('../schemas/testimonials')
 

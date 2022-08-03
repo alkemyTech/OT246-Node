@@ -6,7 +6,7 @@ const {
 const { validateSchema } = require('../middlewares/validations')
 const { activityBodyPost, activityBodyPut } = require('../schemas/activities')
 const { authUser } = require('../middlewares/authUser')
-const { isUserAdmin } = require('../middlewares/adminVerification')
+const { isUserAdmin } = require('../middlewares/authUserAdmin')
 
 const router = Router()
 
