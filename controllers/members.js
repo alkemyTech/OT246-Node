@@ -36,7 +36,7 @@ module.exports = {
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error updating member] - [members/${id} - POST]: ${err.message}`,
+        `[Error updating member] - [members/${id} - PUT]: ${err.message}`,
       )
       return next(httpError)
     }
