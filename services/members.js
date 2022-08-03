@@ -12,3 +12,21 @@ exports.createMember = async ({ name, image }) => {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
+
+exports.updateMember = async (id, { name, image }) => {
+  try {
+    const member = await Member.findByPk(id, {
+      attributes: { exclude: ['deletedAt'] },
+    })
+
+    if (!member) {
+      throw new ErrorObject('Member not found', 404)
+    }
+
+    member.setAttributes({ name, image })
+
+    return member.save()
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
