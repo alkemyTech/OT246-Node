@@ -8,14 +8,14 @@ const {
 } = require('../controllers/categories')
 const { validateSchema } = require('../middlewares/validations')
 const { categoryBodyPost, categoryBodyPut } = require('../schemas/categories')
-const { authUser } = require('../middlewares/authUser')
+const { authUserAdmin } = require('../middlewares/authUserAdmin')
 
 const router = Router()
 
-router.get('/public', get)
-router.get('/:id', getById)
-router.post('/', authUser, validateSchema(categoryBodyPost), post)
-router.put('/:id', authUser, validateSchema(categoryBodyPut), put)
-router.delete('/:id', authUser, destroy)
+router.get('/public', authUserAdmin, get)
+router.get('/:id', authUserAdmin, getById)
+router.post('/', authUserAdmin, validateSchema(categoryBodyPost), post)
+router.put('/:id', authUserAdmin, validateSchema(categoryBodyPut), put)
+router.delete('/:id', authUserAdmin, destroy)
 
 module.exports = router
