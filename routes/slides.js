@@ -9,10 +9,10 @@ const {
 const { authUser } = require('../middlewares/authUser')
 const { isUserAdmin } = require('../middlewares/adminVerification')
 
-router.get('/:id', getById)
-router.get('/', getAll)
-router.put('/:id', authUser, isUserAdmin, put)
-router.delete('/:id', authUser, isUserAdmin, destroy)
-router.post('/', authUser, isUserAdmin, post)
+router.get('/:id', authUserAdmin, getById)
+router.get('/', authUserAdmin, getAll)
+router.put('/:id', authUserAdmin, put)
+router.delete('/:id', authUserAdmin, destroy)
+router.post('/', authUserAdmin, post)
 
 module.exports = router
