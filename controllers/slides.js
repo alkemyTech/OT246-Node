@@ -94,6 +94,7 @@ module.exports = {
     const { body } = req
     try {
       const responseBody = await createSlide(body)
+
       endpointResponse({
         res,
         code: 200,

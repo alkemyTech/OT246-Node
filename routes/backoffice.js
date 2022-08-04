@@ -1,10 +1,9 @@
 const { Router } = require('express')
 const { getContacts } = require('../controllers/backoffice')
-const { authUser } = require('../middlewares/authUser')
-const { isUserAdmin } = require('../middlewares/adminVerification')
+const { authUserAdmin } = require('../middlewares/authUserAdmin')
 
 const router = Router()
 
-router.get('/contacts', authUser, isUserAdmin, getContacts)
+router.get('/contacts', authUserAdmin, getContacts)
 
 module.exports = router

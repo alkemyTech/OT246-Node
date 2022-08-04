@@ -13,6 +13,7 @@ const uploadFileAws = async (tempFile) => {
     Key: tempFile.name,
     Body: tempFile.data,
     ContentType: 'image/jpeg',
+    ACL: 'public-read',
   }
   try {
     const command = createCommand(input)
