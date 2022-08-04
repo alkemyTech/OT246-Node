@@ -6,8 +6,7 @@ const {
   destroy,
   post,
 } = require('../controllers/slides')
-const { authUser } = require('../middlewares/authUser')
-const { isUserAdmin } = require('../middlewares/adminVerification')
+const { authUserAdmin } = require('../middlewares/authUserAdmin')
 
 router.get('/:id', authUserAdmin, getById)
 router.get('/', authUserAdmin, getAll)
