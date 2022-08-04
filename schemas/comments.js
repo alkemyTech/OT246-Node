@@ -1,5 +1,5 @@
 const commentBodyPost = {
-  newId: {
+  newsId: {
     in: 'body',
     isInt: { errorMessage: 'Must be an integer' },
   },
