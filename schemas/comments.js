@@ -1,4 +1,4 @@
-const commentBodyPost = {
+const commentBody = {
   newsId: {
     in: 'body',
     isInt: { errorMessage: 'Must be an integer' },
@@ -9,4 +9,4 @@ const commentBodyPost = {
   },
 }
 
-module.exports = { commentBodyPost }
+module.exports = { commentBody }
