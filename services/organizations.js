@@ -12,13 +12,13 @@ exports.getOrganization = async () => {
       attributes: { exclude: ['welcomeText', 'aboutUsText', 'id'] },
       include: Slide,
       order: [
-        [Slide, 'imageUrl', 'DESC'],
+        [Slide, 'order', 'ASC'],
       ],
     })
 
     return result
   } catch (err) {
-    throw new ErrorObject(err.message || 500)
+    throw new ErrorObject(err.message, 500)
   }
 }
 
