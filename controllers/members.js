@@ -1,5 +1,5 @@
 const createHttpError = require('http-errors')
-const { createMember, deleteMember } = require('../services/members')
+const { createMember, updateMember, deleteMember } = require('../services/members')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
@@ -22,6 +22,26 @@ module.exports = {
       return next(httpError)
     }
   }),
+
+  put: catchAsync(async (req, res, next) => {
+    const { params: { id }, body } = req
+    try {
+      const responseBody = await updateMember(id, body)
+      return endpointResponse({
+        res,
+        code: 200,
+        message: 'Member updated successfully',
+        body: responseBody,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error updating member] - [members/${id} - PUT]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+
   destroy: catchAsync(async (req, res, next) => {
     const { params: { id } } = req
     try {
