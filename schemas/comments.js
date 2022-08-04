@@ -5,6 +5,7 @@ const commentBody = {
   },
   body: {
     in: 'body',
+    trim: true,
     notEmpty: { errorMessage: 'Must not be empty' },
   },
 }
