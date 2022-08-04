@@ -1,11 +1,9 @@
 const { Router } = require('express')
-const { get, put } = require('../controllers/comments')
+const { get } = require('../controllers/comments')
 const { authUserAdmin } = require('../middlewares/authUserAdmin')
-const { authUser } = require('../middlewares/authUser')
 
 const router = Router()
 
-// router.get('/', authUserAdmin, get)
-router.put('/:id', authUser, put)
+router.get('/', authUserAdmin, get)
 
 module.exports = router
