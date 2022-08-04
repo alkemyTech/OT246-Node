@@ -8,8 +8,8 @@ const {
 } = require('../controllers/slides')
 const { authUserAdmin } = require('../middlewares/authUserAdmin')
 
-router.get('/:id', getById)
-router.get('/', getAll)
+router.get('/:id', authUserAdmin, getById)
+router.get('/', authUserAdmin, getAll)
 router.put('/:id', authUserAdmin, put)
 router.delete('/:id', authUserAdmin, destroy)
 router.post('/', authUserAdmin, post)
