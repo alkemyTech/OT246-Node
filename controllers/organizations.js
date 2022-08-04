@@ -1,5 +1,5 @@
 const createHttpError = require('http-errors')
-const { getOrganization, updateOrganization, getOrganizationSlide } = require('../services/organizations')
+const { getOrganization, updateOrganization } = require('../services/organizations')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
@@ -7,20 +7,21 @@ module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await getOrganization()
-
-      return endpointResponse({
+      endpointResponse({
         res,
         code: 200,
         status: true,
-        message: 'OK',
+        message: 'Organization retrieved successfully',
         body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving organizations] - [organizations - GET]: ${err.message}`,
+        `[Error retrieving organization] - [organization - GET]: ${err.message}`,
+
       )
-      return next(httpError)
+
+      next(httpError)
     }
   }),
   post: catchAsync(async (req, res, next) => {
@@ -39,25 +40,6 @@ module.exports = {
         `[Error to update data of Organization] - [organizations - POST]: ${err.message}`,
       )
       next(httpError)
-    }
-  }),
-  getAll: catchAsync(async (req, res, next) => {
-    try {
-      const organizationSlide = await getOrganizationSlide()
-
-      return endpointResponse({
-        res,
-        code: 200,
-        status: true,
-        message: 'Public data OK',
-        body: organizationSlide,
-      })
-    } catch (err) {
-      const httpError = createHttpError(
-        err.statusCode,
-        `[Error retrieving Organization] - [organizations - GET]: ${err.message}`,
-      )
-      return next(httpError)
     }
   }),
 }

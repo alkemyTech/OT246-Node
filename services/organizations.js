@@ -9,12 +9,16 @@ const { ErrorObject } = require('../helpers/error')
 exports.getOrganization = async () => {
   try {
     const result = await Organization.findOne({
-      attributes: ['id', 'name', 'image', 'phone', 'address', 'facebook', 'instagram', 'linkedin'],
+      attributes: { exclude: ['welcomeText', 'aboutUsText', 'id'] },
+      include: Slide,
+      order: [
+        [Slide, 'imageUrl', 'DESC'],
+      ],
     })
 
     return result
   } catch (err) {
-    throw new ErrorObject(err.message, 500)
+    throw new ErrorObject(err.message || 500)
   }
 }
 
@@ -29,19 +33,5 @@ exports.updateOrganization = async (data) => {
     return organizationUpdated
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode || 500)
-  }
-}
-exports.getOrganizationSlide = async () => {
-  try {
-    const organization = await Organization.findOne({
-      attributes: ['id', 'name', 'image', 'phone', 'address', 'email'],
-    })
-    const slide = await Slide.finOne({
-      attributes: ['id', 'imagenUrl', 'text'],
-
-    })
-    return (organization, slide)
-  } catch (err) {
-    throw new ErrorObject(err.message, 500)
   }
 }
