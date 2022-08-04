@@ -4,7 +4,6 @@ const authRouter = require('./auth')
 const backofficeRouter = require('./backoffice')
 const userRouter = require('./users')
 const categoriesRouter = require('./categories')
-const commentsRouter = require('./comments')
 const newsRouter = require('./news')
 const organizationsRouter = require('./organizations')
 const slidesRouter = require('./slides')
@@ -12,6 +11,7 @@ const activitiesRouter = require('./activities')
 const contactsRouter = require('./contacts')
 const testimonialsRouter = require('./testimonials')
 const membersRouter = require('./members')
+const commentsRouter = require('./comments')
 
 const router = express.Router()
 
@@ -30,5 +30,6 @@ router.use('/activities', activitiesRouter)
 router.use('/contacts', contactsRouter)
 router.use('/testimonials', testimonialsRouter)
 router.use('/members', membersRouter)
+router.use('/comments', commentsRouter)
 
 module.exports = router
