@@ -5,13 +5,13 @@ const {
   put,
   destroy,
 } = require('../controllers/news')
-const { authUser } = require('../middlewares/authUser')
+const { authUserAdmin } = require('../middlewares/authUserAdmin')
 const { validateSchema } = require('../middlewares/validations')
 const { newBodyPost, newBodyPut } = require('../schemas/news')
 
-router.get('/:id', authUser, getById)
-router.post('/', authUser, validateSchema(newBodyPost), post)
-router.put('/:id', authUser, validateSchema(newBodyPut), put)
-router.delete('/:id', authUser, destroy)
+router.get('/:id', authUserAdmin, getById)
+router.post('/', authUserAdmin, validateSchema(newBodyPost), post)
+router.put('/:id', authUserAdmin, validateSchema(newBodyPut), put)
+router.delete('/:id', authUserAdmin, destroy)
 
 module.exports = router
