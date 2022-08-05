@@ -1,43 +1,43 @@
 class Paginator {
-  constructor(idPage, context, cant) {
-    this.idPage = Number(idPage)
+  constructor(pageId, context, cant) {
+    this.setPageId(pageId)
     this.validateIdPage()
     this.limit = 10
     this.context = context
     this.setCantPages(cant)
   }
 
-  validateIdPage() {
-    if (this.idPage < 1 || Number.isNaN(this.idPage)) {
-      this.idPage = 1
+  setPageId(pageId) {
+    if (pageId < 0 || Number.isNaN(pageId)) {
+      this.pageId = 0
     }
   }
 
   setCantPages(cant) {
-    this.cantPages = Number((cant / 10).toFixed())
+    this.cantPages = Number((cant / this.limit).toFixed())
   }
 
   getOffset() {
-    if (this.idPage <= 0) {
+    if (this.pageId <= 0) {
       return 0
     }
-    return (this.idPage) * 10
+    return (this.pageId) * this.limit
   }
 
   getLimit() {
     return this.limit
   }
 
-  prevUrl(baseURL) {
-    if (this.idPage > 0) {
-      return `${baseURL}/${this.context}/?page=${this.idPage - 1}`
+  prevPageUrl(baseURL) {
+    if (this.pageId > 0) {
+      return `${baseURL}/${this.context}/?page=${this.pageId - 1}`
     }
     return ''
   }
 
-  nextUrl(baseURL) {
-    if ((this.cantPages - this.idPage) > 0) {
-      return `${baseURL}/${this.context}/?page=${this.idPage + 1}`
+  nextPageUrl(baseURL) {
+    if ((this.cantPages - this.pageId) > 0) {
+      return `${baseURL}/${this.context}/?page=${this.pageId + 1}`
     }
     return ''
   }
@@ -47,7 +47,7 @@ class Paginator {
     return { prevUrl: this.prevUrl(baseURL), nextUrl: this.nextUrl(baseURL) }
   }
 
-  getParams() {
+  getRecordRange() {
     return { offset: this.getOffset(), limit: this.getLimit() }
   }
 }

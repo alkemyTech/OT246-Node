@@ -82,7 +82,7 @@ exports.getNewsPaginated = async (page) => {
   try {
     const cantNews = await New.count()
     const pager = new Paginator(page, 'news', cantNews)
-    const { offset, limit } = pager.getParams()
+    const { offset, limit } = pager.getRecordRange()
 
     const news = await New.findAll({
       attributes: { exclude: ['deletedAt'] },
