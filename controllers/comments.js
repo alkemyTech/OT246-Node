@@ -1,7 +1,11 @@
 const createHttpError = require('http-errors')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
+<<<<<<< HEAD
 const { getComments, deleteComments } = require('../services/comments')
+=======
+const { getComments } = require('../services/comments')
+>>>>>>> 3827d0c7cb8e48a16c2dfebfa8b9c4e1efac949e
 
 module.exports = {
   get: catchAsync(async (req, res, next) => {
@@ -44,4 +48,5 @@ module.exports = {
       return next(httpError)
     }
   }),
+
 }
