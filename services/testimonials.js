@@ -1,3 +1,4 @@
+const Paginator = require('../helpers/paginator')
 const { ErrorObject } = require('../helpers/error')
 const { Testimonial } = require('../database/models')
 
@@ -38,6 +39,24 @@ exports.deleteTestimonial = async (id) => {
     }
     await testimonial.destroy()
     return testimonial
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
+
+exports.getTestimonialsPaginated = async (page) => {
+  try {
+    const cantTestimonials = await Testimonial.count()
+    const pager = new Paginator(page, 'testimonials', cantTestimonials)
+    const { offset, limit } = pager.getParams()
+
+    const testimonials = await Testimonial.findAll({
+      attributes: { exclude: ['deletedAt'] },
+      offset,
+      limit,
+    })
+
+    return { urls: pager.getAttachedUrl(), testimonials }
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
