@@ -47,9 +47,9 @@ module.exports = {
   }),
 
   put: catchAsync(async (req, res, next) => {
-    const { user: { id: userId }, body: { body }, params: { id } } = req
+    const { user: { id: userId, roleId }, body: { body }, params: { id } } = req
     try {
-      const response = await updateComment(id, body, userId)
+      const response = await updateComment(id, body, userId, roleId)
 
       return endpointResponse({
         res,

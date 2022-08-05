@@ -29,14 +29,14 @@ exports.createComment = async ({ userId, newsId, body }) => {
   }
 }
 
-exports.updateComment = async (id, body, userId) => {
+exports.updateComment = async (id, body, userId, roleId) => {
   try {
     const comment = await Comment.findByPk(id)
     if (!comment) {
       throw new ErrorObject('Comment not found', 404)
     }
 
-    if (comment.dataValues.userId === userId) {
+    if (comment.dataValues.userId === userId || roleId === 1) {
       return await comment.update({ body })
     }
 
