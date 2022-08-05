@@ -27,12 +27,8 @@ class Paginator {
     return (this.pageId) * this.limit
   }
 
-  getLimit() {
-    return this.limit
-  }
-
   getRecordRange() {
-    return { offset: this.getOffset(), limit: this.getLimit() }
+    return { offset: this.getOffset(), limit: this.limit }
   }
 
   prevPageUrl(baseURL) {
