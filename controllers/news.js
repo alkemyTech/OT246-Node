@@ -4,6 +4,7 @@ const {
   createNew,
   updateNew,
   deleteNewsById,
+  getNewsPaginated,
 } = require('../services/news')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
@@ -87,6 +88,27 @@ module.exports = {
       const httpError = createHttpError(
         err.statusCode,
         `[Error deleting news] - [news/${id} - DELETE ]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+
+  get: catchAsync(async (req, res, next) => {
+    const { query: { page } } = req
+    try {
+      const responseBody = await getNewsPaginated(page)
+
+      return endpointResponse({
+        res,
+        code: 200,
+        status: true,
+        message: 'News retrieved successfully',
+        body: responseBody,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error retrieving news] - [news/?page=${page} - GET ]: ${err.message}`,
       )
       return next(httpError)
     }
