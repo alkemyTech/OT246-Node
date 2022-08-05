@@ -1,15 +1,18 @@
 class Paginator {
-  constructor(pageId, context, cant) {
-    this.setPageId(pageId)
-    this.validateIdPage()
+  constructor(page, context, cant) {
     this.limit = 10
-    this.context = context
     this.setCantPages(cant)
+    this.setPageId(page)
+    this.context = context
   }
 
-  setPageId(pageId) {
-    if (pageId < 0 || Number.isNaN(pageId)) {
+  setPageId(page) {
+    if (page < 0 || Number.isNaN(page)) {
       this.pageId = 0
+    } else if (this.cantPages < page) {
+      this.pageId = this.cantPages
+    } else {
+      this.pageId = page
     }
   }
 
@@ -28,6 +31,10 @@ class Paginator {
     return this.limit
   }
 
+  getRecordRange() {
+    return { offset: this.getOffset(), limit: this.getLimit() }
+  }
+
   prevPageUrl(baseURL) {
     if (this.pageId > 0) {
       return `${baseURL}/${this.context}/?page=${this.pageId - 1}`
@@ -42,13 +49,8 @@ class Paginator {
     return ''
   }
 
-  getAttachedUrl() {
-    const baseURL = process.env.BASE_URL
-    return { prevUrl: this.prevUrl(baseURL), nextUrl: this.nextUrl(baseURL) }
-  }
-
-  getRecordRange() {
-    return { offset: this.getOffset(), limit: this.getLimit() }
+  getAttachedUrl(baseURL) {
+    return { prevUrl: this.prevPageUrl(baseURL), nextUrl: this.nextPageUrl(baseURL) }
   }
 }
 

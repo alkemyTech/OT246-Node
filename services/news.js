@@ -78,10 +78,10 @@ exports.deleteNewsById = async (id) => {
   }
 }
 
-exports.getNewsPaginated = async (page) => {
+exports.getNewsPaginated = async (page, baseURL) => {
   try {
     const cantNews = await New.count()
-    const pager = new Paginator(page, 'news', cantNews)
+    const pager = new Paginator(Number(page), 'news', cantNews)
     const { offset, limit } = pager.getRecordRange()
 
     const news = await New.findAll({
@@ -90,7 +90,7 @@ exports.getNewsPaginated = async (page) => {
       limit,
     })
 
-    return { urls: pager.getAttachedUrl(), news }
+    return { urls: pager.getAttachedUrl(baseURL), news }
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
