@@ -1,9 +1,16 @@
 class Paginator {
   constructor(idPage, context, cant) {
     this.idPage = Number(idPage)
+    this.validateIdPage()
     this.limit = 10
     this.context = context
     this.setCantPages(cant)
+  }
+
+  validateIdPage() {
+    if (this.idPage < 1 || Number.isNaN(this.idPage)) {
+      this.idPage = 1
+    }
   }
 
   setCantPages(cant) {
