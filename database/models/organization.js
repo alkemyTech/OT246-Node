@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     linkedin: DataTypes.STRING,
     instagram: DataTypes.STRING
   }, {
-    timestamps: false,
+    timestamps: true,
     paranoid: true,
     sequelize,
     modelName: 'Organization',

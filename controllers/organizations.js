@@ -7,21 +7,20 @@ module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
       const responseBody = await getOrganization()
-      endpointResponse({
+
+      return endpointResponse({
         res,
         code: 200,
         status: true,
-        message: 'Organization retrieved successfully',
+        message: 'OK',
         body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving organization] - [organization - GET]: ${err.message}`,
-
+        `[Error retrieving organizations] - [organizations - GET]: ${err.message}`,
       )
-
-      next(httpError)
+      return next(httpError)
     }
   }),
   post: catchAsync(async (req, res, next) => {

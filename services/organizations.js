@@ -9,7 +9,7 @@ const { ErrorObject } = require('../helpers/error')
 exports.getOrganization = async () => {
   try {
     const result = await Organization.findOne({
-      attributes: { exclude: ['welcomeText', 'aboutUsText', 'id'] },
+      attributes: ['id', 'name', 'image', 'phone', 'address', 'facebook', 'instagram', 'linkedin'],
       include: Slide,
       order: [
         [Slide, 'order', 'ASC'],
