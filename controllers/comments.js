@@ -1,7 +1,7 @@
 const createHttpError = require('http-errors')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
-const { getComments, deleteComments } = require('../services/comments')
+const { getComments, deleteComment } = require('../services/comments')
 
 module.exports = {
   get: catchAsync(async (req, res, next) => {
@@ -27,7 +27,7 @@ module.exports = {
   destroy: catchAsync(async (req, res, next) => {
     const { params: { id } } = req
     try {
-      const responseBody = await deleteComments(id)
+      const responseBody = await deleteComment(id)
 
       return endpointResponse({
         res,
