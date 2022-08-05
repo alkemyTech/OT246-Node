@@ -9,6 +9,7 @@ module.exports = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: 'mysql',
+    baseURL: process.env.BASE_URL,
   },
 
   production: {
@@ -18,5 +19,6 @@ module.exports = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: 'mysql',
+    baseURL: process.env.BASE_URL,
   },
 }
