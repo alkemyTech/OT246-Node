@@ -1,4 +1,5 @@
 const { ForeignKeyConstraintError } = require('sequelize')
+const Paginator = require('../helpers/paginator')
 const { New, Category } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 
@@ -72,6 +73,24 @@ exports.deleteNewsById = async (id) => {
 
     await newsById.destroy()
     return newsById
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
+
+exports.getNewsPaginated = async (page) => {
+  try {
+    const cantNews = await New.count()
+    const pager = new Paginator(page, 'news', cantNews)
+    const { offset, limit } = pager.getParams()
+
+    const news = await New.findAll({
+      attributes: { exclude: ['deletedAt'] },
+      offset,
+      limit,
+    })
+
+    return { urls: pager.getAttachedUrl(), news }
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
