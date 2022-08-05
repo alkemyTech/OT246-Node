@@ -1,5 +1,10 @@
 const createHttpError = require('http-errors')
-const { createTestimonial, updateTestimonial, deleteTestimonial } = require('../services/testimonials')
+const {
+  createTestimonial,
+  updateTestimonial,
+  deleteTestimonial,
+  getTestimonialsPaginated,
+} = require('../services/testimonials')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
@@ -54,6 +59,27 @@ module.exports = {
       const httpError = createHttpError(
         err.statusCode,
         `[Error deleting testimonial] - [testimonials/${req.params.id} - DELETE ]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+
+  get: catchAsync(async (req, res, next) => {
+    const { query: { page } } = req
+    try {
+      const responseBody = await getTestimonialsPaginated(page)
+
+      return endpointResponse({
+        res,
+        code: 200,
+        status: true,
+        message: 'Testimonials retrieved successfully',
+        body: responseBody,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error retrieving testimonials] - [news/?page=${page} - GET ]: ${err.message}`,
       )
       return next(httpError)
     }
