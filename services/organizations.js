@@ -1,4 +1,4 @@
-const { Organization } = require('../database/models')
+const { Organization, Slide } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 
 /**
@@ -10,6 +10,10 @@ exports.getOrganization = async () => {
   try {
     const result = await Organization.findOne({
       attributes: ['id', 'name', 'image', 'phone', 'address', 'facebook', 'instagram', 'linkedin'],
+      include: Slide,
+      order: [
+        [Slide, 'order', 'ASC'],
+      ],
     })
 
     return result
