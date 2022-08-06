@@ -47,9 +47,9 @@ module.exports = {
   }),
 
   destroy: catchAsync(async (req, res, next) => {
-    const { params: { id } } = req
+    const { params: { id }, user } = req
     try {
-      const responseBody = await deleteComment(id)
+      const responseBody = await deleteComment(id, user)
 
       return endpointResponse({
         res,
