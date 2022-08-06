@@ -14,14 +14,14 @@ exports.getComments = async () => {
   }
 }
 
-exports.destroy = async () => {
+exports.deleteComment = async (id) => {
   try {
-    const comments = await Comment.findAll({
-      order: [['createdAt', 'DESC']],
-      attributes: ['body'],
-    })
-
-    return comments
+    const comment = await Comment.findByPk(id)
+    if (!comment) {
+      throw new ErrorObject('Comment not found', 404)
+    }
+    await comment.destroy()
+    return comment
   } catch (err) {
     throw new ErrorObject(err.message, 500)
   }
