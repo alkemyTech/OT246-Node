@@ -32,13 +32,14 @@ exports.createComment = async ({ userId, newsId, body }) => {
 exports.deleteComment = async (id, user) => {
   try {
     const comment = await Comment.findByPk(id)
+
     if (!comment) {
       throw new ErrorObject('Comment not found', 404)
-    } else if (comment.userdId === user.id || user.roleId === 1) {
-      await comment.destroy()
-    } else if (comment.userdId !== user.id) {
+    }
+    if (comment.userId !== user.id) {
       throw new ErrorObject('Invalid login credentials', 401)
     }
+    await comment.destroy()
     return comment
   } catch (err) {
     throw new ErrorObject(err.message, 500)
