@@ -94,9 +94,11 @@ module.exports = {
   }),
 
   get: catchAsync(async (req, res, next) => {
-    const { query: { page } } = req
+    const { query: { page }, headers: { host }, protocol } = req
+    const baseURL = `${protocol}://${host}`
+
     try {
-      const responseBody = await getNewsPaginated(page)
+      const responseBody = await getNewsPaginated(page, baseURL)
 
       return endpointResponse({
         res,
