@@ -37,11 +37,11 @@ exports.deleteComment = async (id, user) => {
       throw new ErrorObject('Comment not found', 404)
     }
     if (comment.userId !== user.id) {
-      throw new ErrorObject('Invalid login credentials', 401)
+      throw new ErrorObject("You don't have enough permissions to delete this comment", 403)
     }
     await comment.destroy()
     return comment
   } catch (err) {
-    throw new ErrorObject(err.message, 500)
+    throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
