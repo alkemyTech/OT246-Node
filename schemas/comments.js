@@ -10,4 +10,10 @@ const commentBodyPost = {
   },
 }
 
-module.exports = { commentBodyPost }
+const commentBodyPut = {
+  body: {
+    ...commentBodyPost.body,
+  },
+}
+
+module.exports = { commentBodyPost, commentBodyPut }
