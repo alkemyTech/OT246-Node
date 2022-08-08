@@ -30,7 +30,7 @@
     "nodemon": "^2.0.15",
     "sequelize": "^6.19.0",
     "sequelize-cli": "6.2.0",
-    "swagger-jsdoc": "^6.2.4",
+    "swagger-jsdoc": "^6.2.5",
     "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {
