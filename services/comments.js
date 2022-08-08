@@ -28,3 +28,20 @@ exports.createComment = async ({ userId, newsId, body }) => {
     throw new ErrorObject(err.message, 500)
   }
 }
+
+exports.updateComment = async (id, body, userId, roleId) => {
+  try {
+    const comment = await Comment.findByPk(id)
+    if (!comment) {
+      throw new ErrorObject('Comment not found', 404)
+    }
+
+    if (comment.dataValues.userId === userId || roleId === 1) {
+      return await comment.update({ body })
+    }
+
+    throw new ErrorObject('This user have no permission to edit this comment', 403)
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
