@@ -65,9 +65,11 @@ module.exports = {
   }),
 
   get: catchAsync(async (req, res, next) => {
-    const { query: { page } } = req
+    const { query: { page }, headers: { host }, protocol } = req
+    const baseURL = `${protocol}://${host}`
+
     try {
-      const responseBody = await getTestimonialsPaginated(page)
+      const responseBody = await getTestimonialsPaginated(page, baseURL)
 
       return endpointResponse({
         res,

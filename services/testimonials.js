@@ -44,11 +44,11 @@ exports.deleteTestimonial = async (id) => {
   }
 }
 
-exports.getTestimonialsPaginated = async (page) => {
+exports.getTestimonialsPaginated = async (page, baseURL) => {
   try {
     const cantTestimonials = await Testimonial.count()
-    const pager = new Paginator(page, 'testimonials', cantTestimonials)
-    const { offset, limit } = pager.getParams()
+    const pager = new Paginator(Number(page), 'news', cantTestimonials)
+    const { offset, limit } = pager.getRecordRange()
 
     const testimonials = await Testimonial.findAll({
       attributes: { exclude: ['deletedAt'] },
@@ -56,7 +56,7 @@ exports.getTestimonialsPaginated = async (page) => {
       limit,
     })
 
-    return { urls: pager.getAttachedUrl(), testimonials }
+    return { urls: pager.getAttachedUrl(baseURL), testimonials }
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
