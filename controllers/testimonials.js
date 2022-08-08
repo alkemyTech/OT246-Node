@@ -79,7 +79,7 @@ module.exports = {
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving testimonials] - [news/?page=${page} - GET ]: ${err.message}`,
+        `[Error retrieving testimonials] - [testimonials - GET]: ${err.message}`,
       )
       return next(httpError)
     }
