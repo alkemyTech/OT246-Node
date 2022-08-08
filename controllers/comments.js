@@ -1,7 +1,7 @@
 const createHttpError = require('http-errors')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
-const { getComments, getCommentsByNewsId } = require('../services/comments')
+const { getComments, getCommentsByNewsId, createComment } = require('../services/comments')
 
 module.exports = {
   get: catchAsync(async (req, res, next) => {
@@ -27,7 +27,7 @@ module.exports = {
     try {
       const { id } = req.params
       const responseBody = await getCommentsByNewsId(id)
-      return endpointResponse({
+      endpointResponse({
         res,
         code: 200,
         status: true,
@@ -39,7 +39,28 @@ module.exports = {
         err.statusCode,
         `[Error retrieving comments] - [comments - GET]: ${err.message}`,
       )
-      return next(httpError)
+      next(httpError)
+    }
+  }),
+  post: catchAsync(async (req, res, next) => {
+    const { user: { id: userId }, body } = req
+
+    try {
+      const responseBody = await createComment({ userId, ...body })
+
+      endpointResponse({
+        res,
+        code: 201,
+        message: 'Comment created sucessfully',
+        body: responseBody,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error creating category] - [categories - POST]: ${err.message}`,
+      )
+
+      next(httpError)
     }
   }),
 }

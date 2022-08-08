@@ -1,3 +1,4 @@
+const { ForeignKeyConstraintError } = require('sequelize')
 const { Comment, User, New } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 
@@ -27,5 +28,19 @@ exports.getCommentsByNewsId = async (id) => {
     return comments
   } catch (err) {
     throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}
+
+exports.createComment = async ({ userId, newsId, body }) => {
+  try {
+    const comment = await Comment.create({ userId, newsId, body })
+
+    return comment
+  } catch (err) {
+    if (err instanceof ForeignKeyConstraintError) {
+      throw new ErrorObject('New not found', 404)
+    }
+
+    throw new ErrorObject(err.message, 500)
   }
 }
