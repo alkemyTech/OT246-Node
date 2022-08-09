@@ -122,7 +122,7 @@ module.exports = {
       return endpointResponse({
         res,
         code: 200,
-        message: 'OK',
+        message: 'Categories retrieved successfully',
         body: responseBody,
       })
     } catch (err) {
