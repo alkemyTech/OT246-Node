@@ -5,6 +5,7 @@ const {
   createCategory,
   updateCategory,
   deleteCategory,
+  getCategoriesPaginated,
 } = require('../services/categories')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
@@ -89,6 +90,7 @@ module.exports = {
       return next(httpError)
     }
   }),
+
   destroy: catchAsync(async (req, res, next) => {
     const { params: { id } } = req
     try {
@@ -105,6 +107,28 @@ module.exports = {
       const httpError = createHttpError(
         err.statusCode,
         `[Error deleting category] - [categories/${id} - DELETE]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+
+  getPaginated: catchAsync(async (req, res, next) => {
+    const { query: { page }, headers: { host }, protocol } = req
+    const baseURL = `${protocol}://${host}`
+
+    try {
+      const responseBody = await getCategoriesPaginated(page, baseURL)
+
+      return endpointResponse({
+        res,
+        code: 200,
+        message: 'OK',
+        body: responseBody,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error retrieving categories] - [categories - GET]: ${err.message}`,
       )
       return next(httpError)
     }
