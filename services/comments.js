@@ -61,3 +61,20 @@ exports.updateComment = async (id, body, userId, roleId) => {
     throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
+
+exports.deleteComment = async (id, user) => {
+  try {
+    const comment = await Comment.findByPk(id)
+
+    if (!comment) {
+      throw new ErrorObject('Comment not found', 404)
+    }
+    if (comment.userId !== user.id) {
+      throw new ErrorObject("You don't have enough permissions to delete this comment", 403)
+    }
+    await comment.destroy()
+    return comment
+  } catch (err) {
+    throw new ErrorObject(err.message, err.statusCode || 500)
+  }
+}

@@ -6,6 +6,7 @@ const {
   getCommentsByNewsId,
   createComment,
   updateComment,
+  deleteComment,
 } = require('../services/comments')
 
 module.exports = {
@@ -92,6 +93,27 @@ module.exports = {
       const httpError = createHttpError(
         err.statusCode,
         `[Error updating comment] - [comment/${id} - PUT]: ${err.message}`,
+      )
+      return next(httpError)
+    }
+  }),
+
+  destroy: catchAsync(async (req, res, next) => {
+    const { params: { id }, user } = req
+    try {
+      const responseBody = await deleteComment(id, user)
+
+      return endpointResponse({
+        res,
+        code: 200,
+        status: true,
+        message: 'Comments successfully deleted',
+        body: responseBody,
+      })
+    } catch (err) {
+      const httpError = createHttpError(
+        err.statusCode,
+        `[Error deleting comments] - [comments/${id} - DELETE]: ${err.message}`,
       )
       return next(httpError)
     }
