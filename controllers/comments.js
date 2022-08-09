@@ -6,7 +6,7 @@ const {
   getCommentsByNewsId,
   createComment,
   updateComment,
-  deleteComment
+  deleteComment,
 } = require('../services/comments')
 
 module.exports = {
