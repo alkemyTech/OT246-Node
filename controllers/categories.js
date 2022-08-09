@@ -10,7 +10,7 @@ const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
 
 module.exports = {
-  getPaginated: catchAsync(async (req, res, next) => {
+  get: catchAsync(async (req, res, next) => {
     const { query: { page }, headers: { host }, protocol } = req
     const baseURL = `${protocol}://${host}`
 

@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const {
-  getPaginated,
+  get,
   getById,
   post,
   put,
@@ -12,7 +12,7 @@ const { authUserAdmin } = require('../middlewares/authUserAdmin')
 
 const router = Router()
 
-router.get('/', authUserAdmin, getPaginated)
+router.get('/', authUserAdmin, get)
 router.get('/:id', authUserAdmin, getById)
 router.post('/', authUserAdmin, validateSchema(categoryBodyPost), post)
 router.put('/:id', authUserAdmin, validateSchema(categoryBodyPut), put)
