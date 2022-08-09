@@ -5,10 +5,8 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
-const swaggerUI = require('swagger-ui-express')
-const swaggerJsDoc = require('swagger-jsdoc')
+
 require('dotenv').config()
-const specs = require('./docs/swagger')
 
 const indexRouter = require('./routes/index')
 
@@ -29,7 +27,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(fileUpload())
 
 app.use('/', indexRouter)
-app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(specs)))
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
