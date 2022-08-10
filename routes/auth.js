@@ -22,6 +22,38 @@
  *         body:
  *           description: Response body
  *
+ *     ValidationError:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           default: Validation Error
+ *         statusCode:
+ *           type: integer
+ *           default: 400
+ *         status:
+ *           type: string
+ *           default: fail
+ *         isOperational:
+ *           type: boolean
+ *           default: true
+ *         errors:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               value:
+ *                 description: Validated value
+ *               msg:
+ *                 type: string
+ *                 description: Error message
+ *               param:
+ *                 type: string
+ *                 description: Parameter where the error is
+ *               location:
+ *                 type: string
+ *                 default: body
+ *
  *     LoginBody:
  *       type: object
  *       properties:
