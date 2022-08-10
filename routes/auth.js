@@ -6,6 +6,22 @@
  *
  * components:
  *   schemas:
+ *     SuccessResponse:
+ *       type: object
+ *       properties:
+ *         status:
+ *           type: boolean
+ *           default: true
+ *         code:
+ *           type: integer
+ *           default: 200
+ *           description: Response status code
+ *         message:
+ *           type: string
+ *           description: Response description
+ *         body:
+ *           description: Response body
+ *
  *     LoginBody:
  *       type: object
  *       properties:
