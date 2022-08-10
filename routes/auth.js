@@ -1,5 +1,9 @@
 /**
  * @swagger
+ * tags:
+ *   - name: auth
+ *     description: Endpoints regarding user authentication
+ *
  * components:
  *   schemas:
  *     LoginBody:
