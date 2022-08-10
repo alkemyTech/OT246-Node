@@ -107,6 +107,24 @@
  *       required:
  *         - firstName
  *         - lastName
+ *
+ * paths:
+ *   /auth/register:
+ *     post:
+ *       tags:
+ *         - auth
+ *       summary: Creates a new account
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       responses:
+ *         201:
+ *           $ref: '#/components/responses/UserRegistered'
+ *         400:
+ *           $ref: '#/components/responses/RegisterBadRequest'
  */
 
 const { Router } = require('express')
