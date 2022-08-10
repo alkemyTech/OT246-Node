@@ -5,6 +5,12 @@
  *     description: Endpoints regarding user authentication
  *
  * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *
  *   schemas:
  *     SuccessResponse:
  *       type: object
