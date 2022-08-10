@@ -125,6 +125,25 @@
  *           $ref: '#/components/responses/UserRegistered'
  *         400:
  *           $ref: '#/components/responses/RegisterBadRequest'
+ *
+ *   /auth/login:
+ *     post:
+ *       tags:
+ *         - auth
+ *       summary: Logs in to an existing account
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginBody'
+ *       responses:
+ *         200:
+ *           $ref: '#/components/responses/UserLoggedIn'
+ *         400:
+ *           $ref: '#/components/responses/LoginValidationError'
+ *         401:
+ *           $ref: '#/components/responses/LoginInvalidCredentials'
  */
 
 const { Router } = require('express')
