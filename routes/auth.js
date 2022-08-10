@@ -150,6 +150,19 @@
  *           $ref: '#/components/responses/LoginValidationError'
  *         401:
  *           $ref: '#/components/responses/LoginInvalidCredentials'
+ *
+ *   /auth/me:
+ *     get:
+ *       tags:
+ *         - auth
+ *       summary: Retrieves the current user data
+ *       security:
+ *         - bearerAuth: []
+ *       responses:
+ *         200:
+ *           $ref: '#/components/responses/UserDataRetrieved'
+ *         401:
+ *           $ref: '#/components/responses/InvalidToken'
  */
 
 const { Router } = require('express')
