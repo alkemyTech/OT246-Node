@@ -234,6 +234,32 @@ module.exports = {
     }
   }),
 
+  /**
+   * @swagger
+   * components:
+   *   responses:
+   *     UserDataRetrieved:
+   *       description: The user data was retrieved successfully
+   *       content:
+   *         application/json:
+   *           schema:
+   *             allOf:
+   *               - $ref: '#/components/schemas/SuccessResponse'
+   *               - type: object
+   *                 properties:
+   *                   message:
+   *                     example: User retrieved successfully
+   *                   body:
+   *                     $ref: '#/components/schemas/User'
+   *     InvalidToken:
+   *       description: The authorization token is invalid or nonexistent
+   *       content:
+   *         text/html:
+   *           schema:
+   *             type: string
+   *             example: 'UnauthorizedError: Invalid login credentials'
+   */
+
   getData: (req, res) => {
     const { user } = req
     const responseBody = showUserData(user)
