@@ -1,6 +1,6 @@
 const createHttpError = require('http-errors')
 const {
-  getCategoriesPaginated,
+  getCategories,
   getCategoryById,
   createCategory,
   updateCategory,
@@ -15,7 +15,7 @@ module.exports = {
     const baseURL = `${protocol}://${host}`
 
     try {
-      const responseBody = await getCategoriesPaginated(page, baseURL)
+      const responseBody = await getCategories(page, baseURL)
 
       return endpointResponse({
         res,

@@ -2,7 +2,7 @@ const { Category } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
 const Paginator = require('../helpers/paginator')
 
-exports.getCategoriesPaginated = async (page, baseURL) => {
+exports.getCategories = async (page, baseURL) => {
   try {
     const cantCategories = await Category.count()
     const pager = new Paginator(Number(page), 'categories', cantCategories)
