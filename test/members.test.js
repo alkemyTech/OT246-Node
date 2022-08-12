@@ -2,7 +2,7 @@ const request = require('supertest');
 const { expect } = require('chai');
 const app = require('../app');
 
-describe('Member success', () => {
+describe('Members endpoint test on success', () => {
   before(async () => {
     const response = await request(app)
       .post('/auth/login')
@@ -14,7 +14,7 @@ describe('Member success', () => {
     global.token = response.body.body;
   }),
 
-    describe('GET /members', () => {
+    describe('[GET - /members]', () => {
       it('Should GET all members', async () => {
         const response = await request(app)
           .get('/members')
@@ -24,7 +24,7 @@ describe('Member success', () => {
       }).timeout(5000);
     }),
 
-    describe('POST /members', () => {
+    describe('[POST - /members]', () => {
       it('Should create a new member', async () => {
         const response = await request(app)
           .post('/members')
@@ -39,7 +39,7 @@ describe('Member success', () => {
       });
     }),
 
-    describe('PUT /members', () => {
+    describe('[PUT - /members]', () => {
       it('Should update a member', async () => {
         const response = await request(app)
           .put('/members/1')
@@ -53,7 +53,7 @@ describe('Member success', () => {
         expect(response.body);
       }).timeout(5000);
     });
-  describe('DELETE /members', () => {
+  describe('[DELETE /members]', () => {
     it('Should delete a member', async () => {
       const response = await request(app)
         .delete('/members/1')
@@ -64,8 +64,8 @@ describe('Member success', () => {
   })
 });
 
-describe('Member failure request', () => {
-  describe('GET /members', () => {
+describe('Members endpoint failure request', () => {
+  describe('[GET - /members]', () => {
     it('Should return error unauthorized', async () => {
       const response = await request(app)
         .get('/members')
@@ -77,7 +77,7 @@ describe('Member failure request', () => {
     });
   }),
 
-    describe('POST /members', () => {
+    describe('[POST - /members]', () => {
       it('Should return error missing property', async () => {
         const response = await request(app)
           .post('/members')
@@ -90,7 +90,7 @@ describe('Member failure request', () => {
       });
     }),
 
-    describe('PUT /members/:id', () => {
+    describe('[PUT - /members/:id]', () => {
       it('Should return error missing member', async () => {
         const response = await request(app)
           .put('/members/22')
@@ -103,7 +103,7 @@ describe('Member failure request', () => {
       });
     }),
 
-    describe('DELETE /members/:id', () => {
+    describe('[DELETE - /members/:id]', () => {
       it('Should return error missing member', async () => {
         const response = await request(app)
           .delete('/members/66')
