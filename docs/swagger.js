@@ -15,6 +15,5 @@ module.exports = {
     ],
   },
   apis: ['../routes/*.js',
-    '../controllers/*.js',
     '../docs/*.js'],
 }
