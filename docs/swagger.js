@@ -1,4 +1,5 @@
 // middlewaress, le paso la ruta para poder consumir la API
+const path = require('path')
 
 module.exports = {
   definition: {
@@ -14,6 +15,5 @@ module.exports = {
       },
     ],
   },
-  apis: ['../routes/*.js',
-    '../docs/*.js'],
+  apis: [path.join(__dirname, '..', 'routes', 'docs', '*.js')],
 }
