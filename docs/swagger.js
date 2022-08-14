@@ -15,5 +15,9 @@ module.exports = {
       },
     ],
   },
-  apis: [path.join(__dirname, '..', 'routes', '*.js')],
+
+  apis: [path.join(__dirname, '..', 'routes', '*.js'),
+
+    path.join(__dirname, '..', 'docs', '*.js')],
+
 }
