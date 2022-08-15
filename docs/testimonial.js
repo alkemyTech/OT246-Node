@@ -16,6 +16,7 @@
  *          description: content for testimonial *
  *      required:
  *        - name
+ *        - content
  *      example:
  *        name: testimonial name
  *        image: https://www.imagenes.com
