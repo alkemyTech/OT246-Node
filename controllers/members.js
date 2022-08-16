@@ -1,6 +1,9 @@
 const createHttpError = require('http-errors')
 const {
-  createMember, updateMember, deleteMember, getMembers,
+  createMember,
+  updateMember,
+  deleteMember,
+  getMembersPaginated,
 } = require('../services/members')
 const { catchAsync } = require('../helpers/catchAsync')
 const { endpointResponse } = require('../helpers/success')
@@ -26,7 +29,10 @@ module.exports = {
   }),
 
   put: catchAsync(async (req, res, next) => {
-    const { params: { id }, body } = req
+    const {
+      params: { id },
+      body,
+    } = req
     try {
       const responseBody = await updateMember(id, body)
       return endpointResponse({
@@ -45,7 +51,9 @@ module.exports = {
   }),
 
   destroy: catchAsync(async (req, res, next) => {
-    const { params: { id } } = req
+    const {
+      params: { id },
+    } = req
     try {
       const responseBody = await deleteMember(id)
 
@@ -66,18 +74,26 @@ module.exports = {
   }),
 
   get: catchAsync(async (req, res, next) => {
+    const {
+      query: { page },
+      headers: { host },
+      protocol,
+    } = req
+    const baseURL = `${protocol}://${host}`
+
     try {
-      const response = await getMembers()
+      const responseBody = await getMembersPaginated(page, baseURL)
+
       return endpointResponse({
         res,
         code: 200,
         message: 'Members retrieved successfully',
-        body: response,
+        body: responseBody,
       })
     } catch (err) {
       const httpError = createHttpError(
         err.statusCode,
-        `[Error retrieving members] - [members - GET]: ${err.message}`,
+        `[Error retrieving members] - [members - GET] - ${err.message}`,
       )
       return next(httpError)
     }
