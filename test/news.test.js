@@ -65,6 +65,19 @@ describe('news tests', () => {
           .that.has.property('id');
       });
     });
+
+    describe('[GET - /news/:id/comments', () => {
+      it('should return an array of comments', async () => {
+        const response = await request(app)
+          .get('/news/1/comments')
+          .set('Authorization', `Bearer ${userToken}`);
+
+        expect(response.statusCode).to.equal(200);
+
+        expect(response.body).to.have.property('body');
+        expect(Array.isArray(response.body.body)).to.be.true;
+      });
+    });
   });
 
   describe('news tests on failure', () => {
@@ -87,6 +100,22 @@ describe('news tests', () => {
         const response = await request(app)
           .get('/news/notanid')
           .set('Authorization', `Bearer ${adminToken}`);
+
+        expect(response.statusCode).to.equal(404);
+      });
+    });
+
+    describe('[GET - /news/:id/comments]', () => {
+      it('should return 401 if no token provided', async () => {
+        const response = await request(app).get('/news/1/comments');
+
+        expect(response.statusCode).to.equal(401);
+      });
+
+      it('should return 404 if new is not found', async () => {
+        const response = await request(app)
+          .get('/news/notanid/comments')
+          .set('Authorization', `Bearer ${userToken}`);
 
         expect(response.statusCode).to.equal(404);
       });
