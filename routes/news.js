@@ -114,14 +114,14 @@
  *
  */
 
-/* GET news */
+/* GET news by id */
 /**
  * @swagger
  *  paths:
  *   /news/{id}:
  *    get:
  *       tags: [news]
- *       summary: Creates
+ *       summary: Retrieve News by id
  *       security:
  *         - bearerAuth: []
  *       parameters:
@@ -130,7 +130,7 @@
  *           schema:
  *             type: integer
  *           required: true
- *           description: the testimonial ID
+ *           description: the news ID
  *       responses:
  *         201:
  *           description: Create a News
@@ -165,25 +165,26 @@
  *
  */
 
-/* GET testimonial */
+/* GET news */
 /**
  * @swagger
- * /testimonials:
+ * /news:
  *  get:
- *    summary: return all testimonials
+ *    summary: return all news
  *    tags: [Testimonial]
  *    responses:
  *      200:
- *        description: all testimonials
+ *        description: all news
  *        content:
  *          application/json:
  *            schema:
  *              type: array
  *              items:
- *                $ref: '#/components/schemas/Testimonials'
+ *                $ref: '#/components/schemas/News'
  *      404:
- *        description: there aren't testimonials to show
+ *        description: there aren't news to show
  */
+
 const router = require('express').Router()
 const {
   getById,
