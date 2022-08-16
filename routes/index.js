@@ -1,5 +1,76 @@
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *
+ *   schemas:
+ *     SuccessResponse:
+ *       type: object
+ *       properties:
+ *         status:
+ *           type: boolean
+ *           default: true
+ *         code:
+ *           type: integer
+ *           default: 200
+ *           description: Response status code
+ *         message:
+ *           type: string
+ *           description: Response description
+ *         body:
+ *           description: Response body
+ *
+ *     ValidationError:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           default: Validation Error
+ *         statusCode:
+ *           type: integer
+ *           default: 400
+ *         status:
+ *           type: string
+ *           default: fail
+ *         isOperational:
+ *           type: boolean
+ *           default: true
+ *         errors:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               value:
+ *                 description: Validated value
+ *               msg:
+ *                 type: string
+ *                 description: Error message
+ *               param:
+ *                 type: string
+ *                 description: Parameter where the error is
+ *               location:
+ *                 type: string
+ *                 default: body
+ *
+ *   responses:
+ *     InvalidToken:
+ *       description: The authorization token is invalid or nonexistent
+ *       content:
+ *         text/html:
+ *           schema:
+ *             type: string
+ *             example: 'UnauthorizedError: Invalid login credentials'
+ */
+
 const express = require('express')
+const swaggerUI = require('swagger-ui-express')
+const swaggerJsDoc = require('swagger-jsdoc')
 const { get } = require('../controllers/index')
+const specs = require('../docs/swagger')
 const authRouter = require('./auth')
 const backofficeRouter = require('./backoffice')
 const userRouter = require('./users')
@@ -31,5 +102,6 @@ router.use('/contacts', contactsRouter)
 router.use('/testimonials', testimonialsRouter)
 router.use('/members', membersRouter)
 router.use('/comments', commentsRouter)
+router.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(specs)))
 
 module.exports = router

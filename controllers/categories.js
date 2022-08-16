@@ -11,14 +11,16 @@ const { endpointResponse } = require('../helpers/success')
 
 module.exports = {
   get: catchAsync(async (req, res, next) => {
+    const { query: { page }, headers: { host }, protocol } = req
+    const baseURL = `${protocol}://${host}`
+
     try {
-      const responseBody = await getCategories()
+      const responseBody = await getCategories(page, baseURL)
 
       return endpointResponse({
         res,
         code: 200,
-        status: true,
-        message: 'OK',
+        message: 'Categories retrieved successfully',
         body: responseBody,
       })
     } catch (err) {
@@ -89,6 +91,7 @@ module.exports = {
       return next(httpError)
     }
   }),
+
   destroy: catchAsync(async (req, res, next) => {
     const { params: { id } } = req
     try {

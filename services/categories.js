@@ -1,14 +1,22 @@
 const { Category } = require('../database/models')
 const { ErrorObject } = require('../helpers/error')
+const Paginator = require('../helpers/paginator')
 
-exports.getCategories = async () => {
+exports.getCategories = async (page, baseURL) => {
   try {
-    const result = await Category.findAll({
-      attributes: ['name'],
+    const cantCategories = await Category.count()
+    const pager = new Paginator(Number(page), 'categories', cantCategories)
+    const { offset, limit } = pager.getRecordRange()
+
+    const categories = await Category.findAll({
+      attributes: { exclude: ['deletedAt'] },
+      offset,
+      limit,
     })
-    return result
+
+    return { urls: pager.getAttachedUrl(baseURL), categories }
   } catch (err) {
-    throw new ErrorObject(err.message, 500)
+    throw new ErrorObject(err.message, err.statusCode || 500)
   }
 }
 

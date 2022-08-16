@@ -12,7 +12,7 @@ const { authUserAdmin } = require('../middlewares/authUserAdmin')
 
 const router = Router()
 
-router.get('/public', authUserAdmin, get)
+router.get('/', authUserAdmin, get)
 router.get('/:id', authUserAdmin, getById)
 router.post('/', authUserAdmin, validateSchema(categoryBodyPost), post)
 router.put('/:id', authUserAdmin, validateSchema(categoryBodyPut), put)
