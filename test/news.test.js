@@ -78,6 +78,25 @@ describe('news tests', () => {
         expect(Array.isArray(response.body.body)).to.be.true;
       });
     });
+
+    describe('[POST - /news', () => {
+      it('should create a new', async () => {
+        const response = await request(app)
+          .post('/news')
+          .set('Authorization', `Bearer ${adminToken}`)
+          .send({
+            name: 'title',
+            content: 'body',
+            image: 'https://foo.bar',
+            categoryId: 1,
+          });
+
+        expect(response.statusCode).to.equal(201);
+        expect(response.body)
+          .to.have.property('body')
+          .that.has.property('id');
+      });
+    });
   });
 
   describe('news tests on failure', () => {
@@ -116,6 +135,63 @@ describe('news tests', () => {
         const response = await request(app)
           .get('/news/notanid/comments')
           .set('Authorization', `Bearer ${userToken}`);
+
+        expect(response.statusCode).to.equal(404);
+      });
+    });
+
+    describe('[POST - /news', () => {
+      it('should return 400 if request body is not valid', async () => {
+        const response = await request(app)
+          .post('/news')
+          .set('Authorization', `Bearer ${adminToken}`)
+          .send({
+            name: 'title',
+            content: 'body',
+            image: 'https://foo.bar',
+            categoryId: 'not a number',
+          });
+
+        expect(response.statusCode).to.equal(400);
+      });
+
+      it('should return 401 if no token provided', async () => {
+        const response = await request(app)
+          .post('/news')
+          .send({
+            name: 'title',
+            content: 'body',
+            image: 'https://foo.bar',
+            categoryId: 1,
+          });
+
+        expect(response.statusCode).to.equal(401);
+      });
+
+      it('should return 403 if user is not admin', async () => {
+        const response = await request(app)
+          .post('/news')
+          .set('Authorization', `Bearer ${userToken}`)
+          .send({
+            name: 'title',
+            content: 'body',
+            image: 'https://foo.bar',
+            categoryId: 1,
+          });
+
+        expect(response.statusCode).to.equal(403);
+      });
+
+      it('should return 404 if category is not found', async () => {
+        const response = await request(app)
+          .post('/news')
+          .set('Authorization', `Bearer ${adminToken}`)
+          .send({
+            name: 'title',
+            content: 'body',
+            image: 'https://foo.bar',
+            categoryId: -1,
+          });
 
         expect(response.statusCode).to.equal(404);
       });
