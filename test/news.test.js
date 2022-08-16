@@ -126,7 +126,7 @@ describe('news tests', () => {
     });
 
     after('Restore the deleted new so its easier to run the test again', async () => {
-      await New.update({ deletedAt: null }, { where: { id: 1 }, limit: 1 });
+      await New.restore({ where: { id: 1 }, limit: 1 });
     });
   });
 
