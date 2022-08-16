@@ -12,7 +12,6 @@
  *           example: El mato a un policia motorizado
  *         content:
  *           type: string
- *           format: url
  *           description: News content
  *           example: "Esta canción la escuchaba siempre con mi hijo,
  *                     hoy estuviera cumpliendo 16 años, lástima que
@@ -45,7 +44,6 @@
  *           example: El mato a un policia motorizado
  *         content:
  *           type: string
- *           format: url
  *           description: News content
  *         image:
  *           type: string
@@ -62,6 +60,18 @@
  *           type: string
  *           example: news
  *           readOnly: true
+ *     Comment:
+ *       properties:
+ *         newsId:
+ *           type: integer
+ *           description: New's unique id
+ *           example: 1
+ *           readOnly: true
+ *         body:
+ *           type: string
+ *           description: News content
+ *       required:
+ *         - body
  */
 
 /* POST news */
@@ -71,7 +81,7 @@
  *   /news/:
  *    post:
  *       tags: [news]
- *       summary: create a new (need JWT)
+ *       summary: Create a new (need JWT)
  *       security:
  *         - bearerAuth: []
  *       requestBody:
@@ -114,6 +124,32 @@
  *
  */
 
+/* GET news */
+/**
+ * @swagger
+ * paths:
+ *  /news/?page={page}:
+ *   get:
+ *    summary: Return all news
+ *    tags: [news]
+ *    parameters:
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *        required: true
+ *        description: number page
+ *    responses:
+ *      200:
+ *        description: all news
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/News'
+ */
+
 /* GET news by id */
 /**
  * @swagger
@@ -142,7 +178,7 @@
  *                   - type: object
  *                     properties:
  *                       code:
- *                         example: 201
+ *                         example: 202
  *                       message:
  *                         example: New created successfully
  *                       body:
@@ -151,27 +187,34 @@
  *                           news:
  *                             $ref: '#/components/schemas/News'
  *         404:
- *           allOf:
- *             - description: >-
- *                 The request body validation failed or the categoryid is invalid
- *               content:
- *                 text/html:
- *                   schema:
- *                     type: string
- *                     example: >-
- *                       BadRequestError:
- *                       [Error creating new] - [news - POST]:
- *                       Category not found
+ *           description: Not found News
+ *           content:
+ *             text/html:
+ *               schema:
+ *                 type: string
+ *                 example: >-
+ *                   UnauthorizedError:
+ *                   [Error retrieving news] - [news/${id} - GET]: Not found News
  *
  */
 
-/* GET news */
+/* GET comments by news id */
 /**
  * @swagger
- * /news:
- *  get:
- *    summary: return all news
- *    tags: [Testimonial]
+ * paths:
+ *  /news/{id}/comments/:
+ *   put:
+ *    tags: [news]
+ *    security:
+ *      - bearerAuth: []
+ *    summary: Update a News (need JWT)
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: integer
+ *        required: true
+ *        description: the news id
  *    responses:
  *      200:
  *        description: all news
@@ -180,11 +223,90 @@
  *            schema:
  *              type: array
  *              items:
- *                $ref: '#/components/schemas/News'
+ *                $ref: '#/components/schemas/Comment'
  *      404:
- *        description: there aren't news to show
+ *        description: Not found News
+ *        content:
+ *          text/html:
+ *            schema:
+ *              type: string
+ *              example: >-
+ *                UnauthorizedError:
+ *                [Error updating news] - [news/${id} - PUT]: Not found News
+ *
  */
 
+/* Destroy news by ID */
+/**
+ * @swagger
+ * /news/{id}:
+ *  delete:
+ *    summary: Update one News (need JWT)
+ *    security:
+ *      - bearerAuth: []
+ *    tags: [news]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: integer
+ *        required: true
+ *        description: the news ID
+ *    responses:
+ *      200:
+ *        description: news deleted
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/News'
+ *      404:
+ *        description: Not found News
+ *        content:
+ *          text/html:
+ *            schema:
+ *              type: string
+ *              example: >-
+ *                UnauthorizedError:
+ *                [Error deleting news] - [news/${id} - DELETE ]: Not found News
+ */
+
+/* Update news by ID */
+/**
+ * @swagger
+ * /news/{id}:
+ *  delete:
+ *    summary: Update one News (need JWT)
+ *    security:
+ *      - bearerAuth: []
+ *    tags: [news]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: integer
+ *        required: true
+ *        description: the news ID
+ *    responses:
+ *      200:
+ *        description: news deleted
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/News'
+ *      404:
+ *        description: Not found News
+ *        content:
+ *          text/html:
+ *            schema:
+ *              type: string
+ *              example: >-
+ *                UnauthorizedError:
+ *                [Error deleting news] - [news/${id} - DELETE ]: Not found News
+ */
 const router = require('express').Router()
 const {
   getById,
