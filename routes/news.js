@@ -53,14 +53,14 @@
  *           description: News image
  *           minLength: 1
  *           example: https://cohorte-julio-8972766c.s3.us-east-1.amazonaws.com/slide1.jpg
+  *         type:
+ *           type: string
+ *           example: news
+ *           readOnly: true
  *         categoryId:
  *           type: integer
  *           description: Category's unique id
  *           example: 1
- *           readOnly: true
- *         type:
- *           type: string
- *           example: news
  *           readOnly: true
  *     Comment:
  *       properties:
