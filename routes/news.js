@@ -2,37 +2,6 @@
  * @swagger
  *  components:
  *   schemas:
- *     NewsBodyPost:
- *       type: object
- *       properties:
- *         name:
- *           type: string
- *           description: News name's
- *           minLength: 1
- *           example: El mato a un policia motorizado
- *         content:
- *           type: string
- *           description: News content
- *           example: "Esta canción la escuchaba siempre con mi hijo,
- *                     hoy estuviera cumpliendo 16 años, lástima que
- *                     se nos adelantó pero se que algun dia nos volveremos
- *                     a encontrar para escuchar juntos de nuevo"
- *         image:
- *           type: string
- *           format: url
- *           description: News image
- *           minLength: 1
- *           example: https://cohorte-julio-8972766c.s3.us-east-1.amazonaws.com/slide1.jpg
- *         categoryId:
- *           type: integer
- *           description: Category's unique id
- *           example: 1
- *           readOnly: true
- *       required:
- *         - name
- *         - content
- *         - image
- *         - categoryId
  *     News:
  *       properties:
  *         name:
@@ -53,15 +22,19 @@
  *           description: News image
  *           minLength: 1
  *           example: https://cohorte-julio-8972766c.s3.us-east-1.amazonaws.com/slide1.jpg
-  *         type:
+ *         type:
  *           type: string
- *           example: news
+ *           example: "news"
  *           readOnly: true
  *         categoryId:
  *           type: integer
  *           description: Category's unique id
  *           example: 1
- *           readOnly: true
+ *       required:
+ *         - name
+ *         - content
+ *         - image
+ *         - categoryId
  *     Comment:
  *       properties:
  *         newsId:
@@ -76,6 +49,7 @@
  *           description: News content
  *       required:
  *         - body
+ *
  *
  */
 
@@ -94,7 +68,7 @@
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/NewsBodyPost'
+ *               $ref: '#/components/schemas/News'
  *       responses:
  *         201:
  *           description: Create a News
