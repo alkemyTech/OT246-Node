@@ -224,7 +224,7 @@
  *   /news/{id}:
  *    get:
  *       tags: [news]
- *       summary: Retrieve News by id
+ *       summary: Retrieve News by id (need JWT)
  *       security:
  *         - bearerAuth: []
  *       parameters:
