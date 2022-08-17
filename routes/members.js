@@ -108,11 +108,26 @@
  *                       BadRequestError:
  *                       [Error creating member] - [members - POST]:
  *                       Name must be string
+ *         401:
+ *           allOf:
+ *             - $ref: '#/components/responses/InvalidToken'
+ *             - description: >-
+ *                 Invalid login credentials
+ *               content:
+ *                 text/html:
+ *                   schema:
+ *                     type: string
+ *                     example: >-
+ *                       UnauthorizedError:
+ *                        [Error creating members] - [members - POST]:
+ *                        Invalid Credentials
  *
  *   /members/:id:
  *     put:
  *       tags:
  *         - members
+ *       security:
+ *         - bearerAuth: []
  *       summary: Edits existing member
  *       requestBody:
  *         required: true
@@ -150,42 +165,84 @@
  *                       BadRequestError:
  *                       [Error creating member] - [members - PUT]:
  *                       Name must be string
+ *         401:
+ *           allOf:
+ *             - $ref: '#/components/responses/InvalidToken'
+ *             - description: >-
+ *                 Invalid login credentials
+ *               content:
+ *                 text/html:
+ *                   schema:
+ *                     type: string
+ *                     example: >-
+ *                       UnauthorizedError:
+ *                        [Error updating members] - [members - PUT]:
+ *                        Invalid Credentials
  *         404:
  *           description: '[Error updating member] - [members/9583698 - PUT]: Member not found'
  *
  * @swagger
- *   /members/:
- *     get:
- *       tags:
- *         - members
- *       summary: Lists all the members
- *       responses:
- *         200:
- *           description: Members retrieved successfully
- *           content:
- *             application/json:
+ * paths:
+ *  /members/?page={page}:
+ *   get:
+ *    summary: Return all members Paginated
+ *    tags:
+ *      - members
+ *    parameters:
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *        required: false
+ *        description: number page
+ *    responses:
+ *      200:
+ *        description: all members
+ *        content:
+ *          application/json:
  *               schema:
  *                 allOf:
  *                   - $ref: '#/components/schemas/SuccessResponse'
  *                   - type: object
  *                     properties:
  *                       message:
- *                         example: Members retrieved successfully
+ *                         example: members retrieved successfully
  *                       body:
- *                         allOf:
- *                          - $ref: '#/components/schemas/Pagination'
- *                          - type: object
+ *                         properties:
+ *                           urls:
+ *                            type: object
  *                            properties:
- *                              members:
- *                              type: array
- *                              items:
- *                                $ref: '#/components/schemas/Member'
+ *                              prevUrl:
+ *                                 type: string
+ *                                 example: http://localhost:3001/members/?page=0
+ *                              nextUrl:
+ *                                 type: string
+ *                                 example: http://localhost:3001/members/?page=2
+ *                           members:
+ *                             type: array
+ *                             items:
+ *                                 $ref: '#/components/schemas/Member'
+ *      403:
+ *        allOf:
+ *          - $ref: '#/components/responses/MemberValidationError'
+ *          - description: >-
+ *              This endpoint is for admins only
+ *            content:
+ *              text/html:
+ *               schema:
+ *                 type: string
+ *                 example: >-
+ *                   UnauthorizedError:
+ *                    [Error retrieving members] - [members - GET]:
+ *                    Invalid Credentials
  *
  * @swagger
- * /members/:id:
+ *   /members/:id:
  *     delete:
  *       tags:
  *         - members
+ *       security:
+ *         - bearerAuth: []
  *       summary: Deletes a member
  *       responses:
  *         200:
@@ -201,10 +258,24 @@
  *                         example: Member successfully deleted
  *                       body:
  *                         $ref: '#/components/schemas/Member'
+ *         401:
+ *           allOf:
+ *             - $ref: '#/components/responses/InvalidToken'
+ *             - description: >-
+ *                 Invalid login credentials
+ *               content:
+ *                 text/html:
+ *                   schema:
+ *                     type: string
+ *                     example: >-
+ *                       UnauthorizedError:
+ *                        [Error deleting members] - [members - DELETE]:
+ *                        Invalid Credentials
  *         404:
  *           description: '[Error deleting member] - [members/8912 - DELETE ] - Member not found'
  *
  */
+
 const router = require('express').Router()
 const {
   post, put, destroy, get,
