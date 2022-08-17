@@ -377,7 +377,7 @@
  *              type: string
  *              example: >-
  *                UnauthorizedError:
- *                [Error deleting news] - [news/${id} - DELETE ]: Not found News
+ *                [Error updating news] - [news/${id} - PUT ]: Not found News
  */
 const router = require('express').Router()
 const {
