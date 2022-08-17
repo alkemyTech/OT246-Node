@@ -77,23 +77,6 @@
  *       required:
  *         - body
  *
- *
- *   responses:
- *     CreateNewsValidationError:
- *       description: The request body validation failed
- *       content:
- *         application/json:
- *           schema:
- *             allOf:
- *             - $ref: '#/components/schemas/ValidationError'
- *             - type: object
- *               properties:
- *                 errors:
- *                   example:
- *                     - value: notAnUrl
- *                       msg: Must be an url
- *                       param: email
- *                       location: body
  */
 
 /* POST news */
