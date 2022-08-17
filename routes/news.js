@@ -34,8 +34,6 @@
  *         - image
  *         - categoryId
  *     News:
- *       allOf:
- *         - $ref: '#/components/schemas/NewBodyPost'
  *       properties:
  *         name:
  *           type: string
@@ -45,6 +43,10 @@
  *         content:
  *           type: string
  *           description: News content
+ *           example: "Esta canción la escuchaba siempre con mi hijo,
+ *                     hoy estuviera cumpliendo 16 años, lástima que
+ *                     se nos adelantó pero se que algun dia nos volveremos
+ *                     a encontrar para escuchar juntos de nuevo"
  *         image:
  *           type: string
  *           format: url
@@ -69,9 +71,29 @@
  *           readOnly: true
  *         body:
  *           type: string
+ *           example: " Típicos años de adolescencia, las juntadas en grupos de amigos,
+ *                    cerveza, lugares alejados,... quién pudiera volver."
  *           description: News content
  *       required:
  *         - body
+ *
+ *
+ *   responses:
+ *     CreateNewsValidationError:
+ *       description: The request body validation failed
+ *       content:
+ *         application/json:
+ *           schema:
+ *             allOf:
+ *             - $ref: '#/components/schemas/ValidationError'
+ *             - type: object
+ *               properties:
+ *                 errors:
+ *                   example:
+ *                     - value: notAnUrl
+ *                       msg: Must be an url
+ *                       param: email
+ *                       location: body
  */
 
 /* POST news */
@@ -81,7 +103,7 @@
  *   /news/:
  *    post:
  *       tags: [news]
- *       summary: Create a new (need JWT)
+ *       summary: Create a New (need JWT)
  *       security:
  *         - bearerAuth: []
  *       requestBody:
@@ -112,15 +134,42 @@
  *         404:
  *           allOf:
  *             - description: >-
- *                 The request body validation failed or the categoryid is invalid
+ *                  Category not found
  *               content:
  *                 text/html:
  *                   schema:
  *                     type: string
  *                     example: >-
- *                       BadRequestError:
+ *                       NotFoundError:
  *                       [Error creating new] - [news - POST]:
  *                       Category not found
+ *         400:
+ *           description: The request body validation failed
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 allOf:
+ *                   - $ref: '#/components/schemas/ValidationError'
+ *                   - type: object
+ *                     properties:
+ *                       errors:
+ *                          example:
+ *                            - value: ""
+ *                              msg: Must not be empty'
+ *                              param: name
+ *                              location: body
+  *                            - value: ""
+ *                              msg: Must not be empty'
+ *                              param: content
+ *                              location: body
+  *                            - value: ""
+ *                              msg: Must not be empty'
+ *                              param: image
+ *                              location: body
+  *                            - value: notAnUrl
+ *                              msg: Must be a valid URL'
+ *                              param: image
+ *                              location: body
  *
  */
 
@@ -130,24 +179,42 @@
  * paths:
  *  /news/?page={page}:
  *   get:
- *    summary: Return all news
+ *    summary: Return all news Paginated
  *    tags: [news]
  *    parameters:
  *      - in: query
  *        name: page
  *        schema:
  *          type: integer
- *        required: true
+ *        required: false
  *        description: number page
  *    responses:
  *      200:
  *        description: all news
  *        content:
  *          application/json:
- *            schema:
- *              type: array
- *              items:
- *                $ref: '#/components/schemas/News'
+ *               schema:
+ *                 allOf:
+ *                   - $ref: '#/components/schemas/SuccessResponse'
+ *                   - type: object
+ *                     properties:
+ *                       message:
+ *                         example: News retrieved successfully
+ *                       body:
+ *                         properties:
+ *                           urls:
+ *                            type: object
+ *                            properties:
+ *                              prevUrl:
+ *                                 type: string
+ *                                 example: http://localhost:3001/news/?page=0
+ *                              nextUrl:
+ *                                 type: string
+ *                                 example: http://localhost:3001/news/?page=2
+ *                           news:
+ *                             type: array
+ *                             items:
+ *                                 $ref: '#/components/schemas/News'
  */
 
 /* GET news by id */
@@ -193,7 +260,7 @@
  *               schema:
  *                 type: string
  *                 example: >-
- *                   UnauthorizedError:
+ *                   NotFoundError:
  *                   [Error retrieving news] - [news/${id} - GET]: Not found News
  *
  */
@@ -203,11 +270,11 @@
  * @swagger
  * paths:
  *  /news/{id}/comments/:
- *   put:
+ *   get:
  *    tags: [news]
  *    security:
  *      - bearerAuth: []
- *    summary: Update a News (need JWT)
+ *    summary: Get all Comments for a specific News (need JWT)
  *    parameters:
  *      - in: path
  *        name: id
@@ -217,7 +284,7 @@
  *        description: the news id
  *    responses:
  *      200:
- *        description: all news
+ *        description: Get all comments from one News
  *        content:
  *          application/json:
  *            schema:
@@ -231,7 +298,7 @@
  *            schema:
  *              type: string
  *              example: >-
- *                UnauthorizedError:
+ *                NotFoundError:
  *                [Error updating news] - [news/${id} - PUT]: Not found News
  *
  */
@@ -241,7 +308,7 @@
  * @swagger
  * /news/{id}:
  *  delete:
- *    summary: Update one News (need JWT)
+ *    summary: Delete one News (need JWT)
  *    security:
  *      - bearerAuth: []
  *    tags: [news]
@@ -254,13 +321,18 @@
  *        description: the news ID
  *    responses:
  *      200:
- *        description: news deleted
+ *        description: News deleted
  *        content:
  *          application/json:
  *            schema:
- *              type: array
- *              items:
- *                $ref: '#/components/schemas/News'
+ *                 allOf:
+ *                   - $ref: '#/components/schemas/SuccessResponse'
+ *                   - type: object
+ *                     properties:
+ *                       message:
+ *                         example: News successfully deleted
+ *                       body:
+ *                         $ref: '#/components/schemas/News'
  *      404:
  *        description: Not found News
  *        content:
@@ -268,7 +340,7 @@
  *            schema:
  *              type: string
  *              example: >-
- *                UnauthorizedError:
+ *                NotFoundError:
  *                [Error deleting news] - [news/${id} - DELETE ]: Not found News
  */
 
@@ -276,7 +348,7 @@
 /**
  * @swagger
  * /news/{id}:
- *  delete:
+ *  put:
  *    summary: Update one News (need JWT)
  *    security:
  *      - bearerAuth: []
