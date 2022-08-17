@@ -376,7 +376,7 @@
  *            schema:
  *              type: string
  *              example: >-
- *                UnauthorizedError:
+ *                NotFoundError:
  *                [Error updating news] - [news/${id} - PUT ]: Not found News
  */
 const router = require('express').Router()
