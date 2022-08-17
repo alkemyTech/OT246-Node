@@ -67,6 +67,8 @@
  *     post:
  *       tags:
  *         - members
+ *       security:
+ *         - bearerAuth: []
  *       summary: Create a new member
  *       requestBody:
  *         required: true
@@ -214,7 +216,7 @@ const { authUserAdmin } = require('../middlewares/authUserAdmin')
 
 router.post('/', authUser, validateSchema(memberBody), post)
 router.put('/:id', authUser, put)
-router.delete('/:id', authUserAdmin, destroy)
+router.delete('/:id', authUser, destroy)
 router.get('/', authUserAdmin, get)
 
 module.exports = router
