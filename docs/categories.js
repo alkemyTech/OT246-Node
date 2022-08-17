@@ -29,6 +29,8 @@
  *  get:
  *    summary: return all categories
  *    tags: [Category]
+ *    security:
+ *      - bearerAuth: []
  *    responses:
  *      200:
  *        description: Categories retrieved successfully
@@ -38,6 +40,10 @@
  *              type: array
  *              items:
  *                $ref: '#/components/schemas/Categories'
+ *      401:
+ *        description: Invalid login credentials
+ *      403:
+ *        description: This endpoint is for admins only
  *      404:
  *        description: there aren't categories to show
  */
@@ -56,6 +62,8 @@
  *          type: integer
  *        required: true
  *        description: the category ID
+ *    security:
+ *      - bearerAuth: []
  *    responses:
  *      200:
  *        description: Category retrieved successfully
@@ -65,6 +73,10 @@
  *              type: array
  *              items:
  *                $ref: '#/components/schemas/Categories'
+ *      401:
+ *        description: Invalid login credentials
+ *      403:
+ *        description: This endpoint is for admins only
  *      404:
  *        description: there isn't category to show
  */
@@ -83,9 +95,15 @@
  *          schema:
  *            type: object
  *            $ref: '#/components/schemas/Categories'
+ *    security:
+ *      - bearerAuth: []
  *    responses:
  *      201:
  *        description: Category created successfully
+ *      401:
+ *        description: Invalid login credentials
+ *      403:
+ *        description: This endpoint is for admins only
  *      500:
  *        description: An internal server error occurred
  */
@@ -111,9 +129,15 @@
  *          schema:
  *            type: object
  *            $ref: '#/components/schemas/Categories'
+ *    security:
+ *      - bearerAuth: []
  *    responses:
  *      200:
  *        description: Category updated successfully
+ *      401:
+ *        description: Invalid login credentials
+ *      403:
+ *        description: This endpoint is for admins only
  *      404:
  *        description: there isn't registered category
  */
@@ -132,9 +156,15 @@
  *          type: integer
  *        required: true
  *        description: the category ID
+ *    security:
+ *      - bearerAuth: []
  *    responses:
  *      200:
  *        description: Category successfully deleted
+ *      401:
+ *        description: Invalid login credentials
+ *      403:
+ *        description: This endpoint is for admins only
  *      404:
  *        description: not found category
  */
