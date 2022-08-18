@@ -43,9 +43,15 @@
  *          schema:
  *            type: object
  *            $ref: '#/components/schemas/Testimonials'
+ *    security:
+ *      - bearerAuth: []
  *    responses:
  *      200:
- *        description: testimonial updated
+ *        description: Testimonial updated successfully
+ *      401:
+ *        description: Invalid login credentials
+ *      403:
+ *        description: This endpoint is for admins only
  *      404:
  *        description: there isn't registered testimonial
  */
@@ -65,9 +71,15 @@
  *          schema:
  *            type: object
  *            $ref: '#/components/schemas/Testimonials'
+ *    security:
+ *      - bearerAuth: []
  *    responses:
- *      200:
- *        description: Testimonial created
+ *      201:
+ *        description: Testimonial created successfully
+ *      401:
+ *        description: Invalid login credentials
+ *      403:
+ *        description: This endpoint is for admins only
  *      500:
  *        description: An internal server error occurred
  */
@@ -86,9 +98,15 @@
  *          type: integer
  *        required: true
  *        description: the testimonial ID
+ *    security:
+ *      - bearerAuth: []
  *    responses:
  *      200:
- *        description: Testimonial deleted
+ *        description: Testimonial successfully deleted
+ *      401:
+ *        description: Invalid login credentials
+ *      403:
+ *        description: This endpoint is for admins only
  *      404:
  *        description: not found testimonial
  */
@@ -100,6 +118,8 @@
  *  get:
  *    summary: return all testimonials
  *    tags: [Testimonial]
+ *    security:
+ *      - bearerAuth: []
  *    responses:
  *      200:
  *        description: all testimonials
@@ -111,4 +131,8 @@
  *                $ref: '#/components/schemas/Testimonials'
  *      404:
  *        description: there aren't testimonials to show
+ *      401:
+ *        description: Invalid  credentials
+ *      403:
+ *        description: This endpoint is for admins only
  */
