@@ -256,7 +256,7 @@
  *              type: string
  *              example: >-
  *                NotFoundError:
- *                [Error updating news] - [news/${id} - PUT]: Not found News
+ *                [Error retrieving comments] - [news/${id}/comments - GET]: Not found News
  *
  */
 
