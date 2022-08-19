@@ -118,23 +118,23 @@ describe('User endpoint tests', () => {
       });
   
       describe('[PUT - /users/:id]', () => {
-        it('should return 404 if user is not found', async () => {
+        it('should return 401 if user try to edit another user', async () => {
             const response = await request(app)
               .put('/users/999')
               .set('Authorization', `Bearer ${userToken}`);
           
-            expect(response.statusCode).to.equal(404);
+            expect(response.statusCode).to.equal(401);
           });
       });
   
       describe('[DELETE - /users/:id', () => {
-        it('should return 404 if user not found', async () => {
+        it('should return 401 if user try to delete another user', async () => {
           const response = await request(app)
             .delete('/users/9999999999')
             .set('Authorization', `Bearer ${userToken}`)
         
   
-          expect(response.statusCode).to.equal(404);
+          expect(response.statusCode).to.equal(401);
         });
   
         
