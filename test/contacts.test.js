@@ -7,8 +7,8 @@ describe('Contacts endpoint test on success', () => {
     const response = await request(app)
       .post('/auth/login')
       .send({
-        email: 'rickyespinoza@mail.com',
-        password: 'ABC123_f',
+        email: 'usuarioadmin3@mail.com',
+        password: 'ABCZ_efgi_1230',
       })
       .expect(200);
     global.tokenAdminTest = response.body.body;
@@ -17,12 +17,11 @@ describe('Contacts endpoint test on success', () => {
       const response = await request(app)
         .post('/auth/login')
         .send({
-          email: 'horaciog@mail.com',
-          password: 'ABC123_f',
+          email: 'usuariocomun2@mail.com',
+          password: 'ABCD_efgh_1234',
         })
         .expect(200);
       global.tokenUserTest = response.body.body;
-      console.log(global.tokenUserTest);
     }),
     describe('[GET - /contacts]', () => {
       it('Should GET all members', async () => {
@@ -39,8 +38,8 @@ describe('Contacts endpoint test on success', () => {
           .post('/contacts')
           .set('Authorization', `Bearer ${global.tokenUserTest}`)
           .send({
-            name: 'Ricardo',
-            email: 'rickyespinoza@mail.com',
+            name: 'nombre1',
+            email: 'usuariocomun7@mail.com',
           });
         expect(response.statusCode).to.equal(201);
       });
@@ -62,9 +61,9 @@ describe('Contacts endpoint failure requests', () => {
           .post('/contacts')
           .set('Authorization', `Bearer fakeToken`)
           .send({
-            name: 'Ricardo',
+            name: 'nombre1',
             phone: '123456789',
-            email: 'richard@gmail.com',
+            email: 'usuariocomun8@mail.com',
             message: 'Hola',
           });
         expect(response.statusCode).to.equal(401);

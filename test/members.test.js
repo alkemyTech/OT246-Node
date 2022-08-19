@@ -1,24 +1,25 @@
 const request = require('supertest');
 const { expect } = require('chai');
 const app = require('../app');
+const { Member } = require('../database/models');
 
 describe('Members endpoint test on success', () => {
   before(async () => {
     const response = await request(app)
       .post('/auth/login')
       .send({
-        email: 'rickyespinoza@mail.com',
-        password: 'ABC123_f',
+        email: 'usuarioadmin8@mail.com',
+        password: 'ABCZ_efgi_1230',
       })
       .expect(200);
-    global.token = response.body.body;
+    global.tokenTest = response.body.body;
   }),
 
     describe('[GET - /members]', () => {
       it('Should GET all members', async () => {
         const response = await request(app)
           .get('/members')
-          .set('Authorization', `Bearer ${global.token}`);
+          .set('Authorization', `Bearer ${global.tokenTest}`);
         expect(response.statusCode).to.equal(200);
         expect(response.body.members);
       }).timeout(5000);
@@ -28,7 +29,7 @@ describe('Members endpoint test on success', () => {
       it('Should create a new member', async () => {
         const response = await request(app)
           .post('/members')
-          .set('Authorization', `Bearer ${global.token}`)
+          .set('Authorization', `Bearer ${global.tokenTest}`)
           .send({
             name: 'Ricky',
             image: 'https://rickyespinoza.com',
@@ -43,7 +44,7 @@ describe('Members endpoint test on success', () => {
       it('Should update a member', async () => {
         const response = await request(app)
           .put('/members/1')
-          .set('Authorization', `Bearer ${global.token}`)
+          .set('Authorization', `Bearer ${global.tokenTest}`)
           .send({
             name: 'Jaime',
             image: 'https://image.com/image.jpg',
@@ -57,12 +58,16 @@ describe('Members endpoint test on success', () => {
     it('Should delete a member', async () => {
       const response = await request(app)
         .delete('/members/1')
-        .set('Authorization', `Bearer ${global.token}`);
+        .set('Authorization', `Bearer ${global.tokenTest}`);
       expect(response.statusCode).to.equal(200);
       expect(response.body);
     }).timeout(5000);
   })
-});
+}),
+
+after(async () => {
+  await Member.restore({ where: {id: 1}});
+}),
 
 describe('Members endpoint failure request', () => {
   describe('[GET - /members]', () => {
@@ -81,7 +86,7 @@ describe('Members endpoint failure request', () => {
       it('Should return error missing property', async () => {
         const response = await request(app)
           .post('/members')
-          .set('Authorization', `Bearer ${global.token}`)
+          .set('Authorization', `Bearer ${global.tokenTest}`)
           .send({
             image: 'https://rickyespinoza.com',
             createdAt: new Date(),
@@ -94,7 +99,7 @@ describe('Members endpoint failure request', () => {
       it('Should return error missing member', async () => {
         const response = await request(app)
           .put('/members/22')
-          .set('Authorization', `Bearer ${global.token}`)
+          .set('Authorization', `Bearer ${global.tokenTest}`)
           .send({
             name: 'Gilian',
             createdAt: new Date(),
@@ -107,7 +112,7 @@ describe('Members endpoint failure request', () => {
       it('Should return error missing member', async () => {
         const response = await request(app)
           .delete('/members/66')
-          .set('Authorization', `Bearer ${global.token}`);
+          .set('Authorization', `Bearer ${global.tokenTest}`);
         expect(response.statusCode).to.equal(404);
       });
     });

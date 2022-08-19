@@ -1,6 +1,7 @@
 const request = require('supertest');
 const { expect } = require('chai');
 const app = require('../app');
+const { User } = require('../database/models');
 
 describe('User endpoint tests', () => {
     let userToken, adminToken;
@@ -20,7 +21,18 @@ describe('User endpoint tests', () => {
       const userLoginResponse = await request(app)
         .post('/auth/login')
         .send({
-          email: 'usuariocomun3@mail.com',
+          email: 'usuariocomun4@mail.com',
+          password: 'ABCD_efgh_1234',
+        })
+        .expect(200);
+  
+      userToken = userLoginResponse.body.body;
+    });
+    before(async () => {
+      const userLoginResponse = await request(app)
+        .post('/auth/login')
+        .send({
+          email: 'usuariocomun4@mail.com',
           password: 'ABCD_efgh_1234',
         })
         .expect(200);
@@ -45,7 +57,7 @@ describe('User endpoint tests', () => {
       describe('[PUT - /users/:id]', () => {
         it('should update a user', async () => {
           const response = await request(app)
-            .put('/users/13')
+            .put('/users/14')
             .set('Authorization', `Bearer ${userToken}`)
             .send({
               photo: 'https://image.com/image.jpg',
@@ -60,7 +72,7 @@ describe('User endpoint tests', () => {
       describe('[DELETE - /users/:id', () => {
         it('should return an user deleted successfully', async () => {
           const response = await request(app)
-            .delete('/users/15')
+            .delete('/users/14')
             .set('Authorization', `Bearer ${userToken}`);
   
           expect(response.statusCode).to.equal(200);
@@ -70,8 +82,23 @@ describe('User endpoint tests', () => {
         });
       });
     });
+
+    after(async () => {
+      await User.restore({ where: {id: 14}});
+    }),
   
     describe('Users tests on failure', () => {
+      before(async () => {
+        const userLoginResponse = await request(app)
+          .post('/auth/login')
+          .send({
+            email: 'usuariocomun2@mail.com',
+            password: 'ABCD_efgh_1234',
+          })
+          .expect(200);
+    
+        userToken = userLoginResponse.body.body;
+      });
       describe('[GET - /users]', () => {
         it('should return 401 if no token provided', async () => {
           const response = await request(app)
